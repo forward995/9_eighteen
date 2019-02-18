@@ -84,9 +84,6 @@ class Login extends Component {
                     <button type="button" className="btn btn-primary" style={styles.btn}>
                         <p style={{color: 'white'}}>Log In</p>
                     </button>
-                    {/* <Button color="default" style={styles.btn}>
-                        <p style={{color: 'white'}}>Log In</p>
-                    </Button> */}
                 </div>
             </div>
         );
