@@ -60,8 +60,14 @@ const styles = {
 }
 
 class MainSidebar extends Component {
-    state = {
-        date: new Date(),
+    constructor(props){
+        super(props)
+        this.state = {
+            date: new Date()
+        }
+    }
+    handleClick = () => {
+        alert("hello")
     }
     render() {
         return (
@@ -103,6 +109,7 @@ class MainSidebar extends Component {
                                 src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
                                 alt=""
                                 style={styles.icon}
+                                onClick={this.handleClick}
                             /><br />
                             <a style={{fontFamily: "Charter - Bold",fontSize: 14, fontWeight: 700}}>Plan New Special Menu Item</a>
                         </div>

@@ -1,11 +1,22 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import MainHeader from './MainHeader'
 import MainContent from './MainContent';
 import MainSidebar from './MainSidebar';
 
-
 class Main extends Component {
+    // constructor(props) {
+    //     super(props)
+    //     this.state({
+    //         isOpen: false
+    //     })
+    // }
+    // handleClick = () => {
+    //     this.setState({
+    //         isOpen: this.props.isOpen
+    //     })
+    // }
     render() {
         return (
             <div>
@@ -18,6 +29,7 @@ class Main extends Component {
                         <MainSidebar />
                     </div>
                 </div>
+
             </div>
         );
     }
