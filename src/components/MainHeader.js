@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import MainHeaderModal from './Modals/MainHeaderModal'
+// import EditModal from './Modals/EditModal';
 
 const styles = {
     tab: {
@@ -71,6 +72,11 @@ class MainHeader extends Component {
         })
         console.log(this.state)
     }
+    handleClose = () => {
+        this.setState({
+            showModal: !this.state.showModal
+        })
+    }
     render() {
         return (
             <div>
@@ -99,13 +105,21 @@ class MainHeader extends Component {
                                 </button>
                             </div>
                             <div>
-                                <button type="button" className="btn btn-default" style={styles.cancelBtn}>
+                                <button onClick={this.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
                                     <p style={{color: 'white'}}>Cancel</p>
                                 </button>   
                             </div>
                         </div>
                     </div>
             }
+            {/* {
+                this.state.showModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <EditModal />
+                        </div>
+                    </div>
+            } */}
             </div>
         );
     }

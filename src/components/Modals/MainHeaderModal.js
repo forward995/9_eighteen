@@ -33,6 +33,11 @@ const styles = {
         width: '91%',
         marginTop: 0
     },
+    hrLineEnd: {
+        width: '91%',
+        marginTop: 0,
+        paddingBottom: '35%'
+    },
     icon: {
         width: 30,
         height: 30,
@@ -85,7 +90,7 @@ class MainHeaderModal extends Component {
                     </div>
                     <div className="col-sm-3"></div>
                 </div>
-                <hr style={styles.hrLine}></hr>
+                <hr style={styles.hrLineEnd}></hr>
             </div>
         );
     }
