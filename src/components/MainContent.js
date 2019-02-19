@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 import Contents from './Contents'
-import ContentModal from './Modals/ContentModal';
 
 const styles = {
     bg: {
@@ -48,7 +47,6 @@ class MainContent extends Component {
         })
     }
     render() {
-        const {isOpen} = this.state
         return (
             <div>
                 <div style={{paddingLeft: '17.5%', boxShadow: "0 3px 18px rgba(203, 203, 203, 0.49)"}}>
@@ -80,26 +78,6 @@ class MainContent extends Component {
                         <Contents />
                     </div>
                 </div>
-                {
-                    isOpen&&
-                    <div>
-                        <div style={styles.modal}>
-                            <div style={{display: 'block'}}>
-                                <ContentModal />
-                                <div>
-                                    <button type="button" className="btn btn-primary" style={styles.doneBtn}>
-                                        <p style={{color: 'white'}}>Done</p>
-                                    </button>
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-default" style={styles.cancelBtn}>
-                                        <p style={{color: 'white'}}>Cancel</p>
-                                    </button>   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
         );
     }
