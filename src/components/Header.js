@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { userActions } from '../actions';
+import PropTypes from 'prop-types';
 
 const styles = {
     headerBar: {
@@ -28,6 +31,9 @@ const styles = {
 }
 
 class Header extends Component {
+    handleClick = () => {
+        this.props.dispatch(userActions.signout());
+    };
     
     render() {
         return (
@@ -52,7 +58,7 @@ class Header extends Component {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a href="#" className="nav-link" style={styles.txt2}>
+                                <a onClick={this.handleClick} href="#" className="nav-link" style={styles.txt2}>
                                     LogOut
                                 </a>
                             </li>
@@ -64,4 +70,17 @@ class Header extends Component {
     }
 }
 
-export default Header;
+Header.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+    const loggingIn = state.authentication.loggedIn;
+    return {
+        loggingIn
+    };
+}
+
+
+export default connect(mapStateToProps)(Header)  
+

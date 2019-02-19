@@ -1,5 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+// import {Link} from 'react-router-dom'
+import { userActions } from '../actions'
+import { connect } from 'react-redux';
+// import axios from 'axios'
 
 const styles = {
     bg: {
@@ -59,7 +64,33 @@ const styles = {
 }
 
 class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: ''
+        }
+    }
+    handleChange = (e) => {
+        const {name, value} = e.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleSubmit = (e) => {
+        console.log(this.props.logginIn)
+        e.preventDefault()
+        const {email, password} = this.state
+        const {dispatch} = this.props
+        console.log(this.props)
+        if(email && password) {
+            dispatch(userActions.signin(email, password))
+        }
+    }
+    
     render() {
+        const {email, password} = this.state
         return (
             <div style={styles.bg}>
                 <div style={{display: 'block'}}>
@@ -68,26 +99,47 @@ class Login extends Component {
                         alt=""
                         style={styles.logo}
                     />
+                    <form onSubmit={this.handleSubmit}>
                     <div style={styles.card}>
                         <input 
-                            placeholder="  Username" 
+                            placeholder="  Useremail"
+                            type="email"
+                            name="email"
+                            value={email} 
+                            onChange={this.handleChange}
                             style={styles.userInput}
                         />
                         <input 
                             placeholder="  Password" 
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={this.handleChange}
                             style={styles.userPassword}
                         />
                         <a style={styles.forgot} href="#">
                             Forgot the Password?
                         </a>
                     </div>
-                    <button type="button" className="btn btn-primary" style={styles.btn}>
+                    <button type="submit" className="btn btn-primary" style={styles.btn}>
                         <p style={{color: 'white'}}>Log In</p>
                     </button>
+                    </form>
                 </div>
             </div>
         );
     }
 }
 
-export default Login;
+Login.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    const loggingIn = state.authentication.loggedIn
+    return {
+        loggingIn
+    }
+}
+
+export default connect(mapStateToProps)(Login);
