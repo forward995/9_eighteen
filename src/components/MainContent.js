@@ -41,11 +41,11 @@ class MainContent extends Component {
         }
     }
 
-    handleClick = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
+    // handleClick = () => {
+    //     this.setState({
+    //         isOpen: !this.state.isOpen
+    //     })
+    // }
     render() {
         return (
             <div>
@@ -82,7 +82,7 @@ class MainContent extends Component {
                                 style={styles.icon}
                             />
                         </button>
-                        <button onClick={this.handleClick} className="tablinks" style={styles.bg}>
+                        <button onClick={this.props.onClick} className="tablinks" style={styles.bg}>
                             <img 
                                 src={`${process.env.PUBLIC_URL}/assets/images/5.png`}
                                 alt=""
@@ -91,7 +91,7 @@ class MainContent extends Component {
                         </button>
                     </div>
                     <div className="tabcontent">
-                        <Contents />
+                        <Contents onClick={this.props.handleOnClick}/>
                     </div>
                 </div>
             </div>

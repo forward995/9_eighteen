@@ -68,7 +68,14 @@ class MainSidebar extends Component {
     }
     handleClick = () => {
         alert("hello")
+        console.log(this.state.date)
     }
+
+    onChange = date => {
+        this.setState({ date })
+        console.log(date)
+    }
+
     render() {
         return (
             <div className="row">
@@ -109,7 +116,7 @@ class MainSidebar extends Component {
                                 src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
                                 alt=""
                                 style={styles.icon}
-                                onClick={this.handleClick}
+                                onClick={this.props.onClick}
                             /><br />
                             <a style={{fontFamily: "Charter - Bold",fontSize: 14, fontWeight: 700}}>Plan New Special Menu Item</a>
                         </div>

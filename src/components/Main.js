@@ -61,7 +61,22 @@ class Main extends Component {
     }
     handleClick = () => {
         this.setState({
-            // showModal: this.props.showModal
+            showModal: !this.state.showModal,            
+        })
+    }
+    handleOnClick = () => {
+        this.setState({
+            showMultiModal: !this.state.showMultiModal
+        })
+    }
+    handleClose = () => {
+        this.setState({
+            showModal: !this.state.showModal,            
+        })
+    }
+    MultihandleClose = () => {
+        this.setState({
+            showMultiModal: !this.state.showMultiModal
         })
     }
     render() {
@@ -70,10 +85,10 @@ class Main extends Component {
                 <MainHeader />
                 <div className="col-sm-12" style={{display: 'flex', marginTop: '1%'}}>
                     <div className="col-sm-8">
-                        <MainContent />
+                        <MainContent onClick={this.handleClick} handleOnClick={this.handleOnClick}/>
                     </div>
                     <div className="col-sm-4">
-                        <MainSidebar />
+                        <MainSidebar onClick={this.handleOnClick}/>
                     </div>
                 </div>
                 {
@@ -87,7 +102,7 @@ class Main extends Component {
                                 </button>
                             </div>
                             <div>
-                                <button type="button" className="btn btn-default" style={styles.cancelBtn}>
+                                <button onClick={this.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
                                     <p style={{color: 'white'}}>Cancel</p>
                                 </button>   
                             </div>
@@ -105,7 +120,7 @@ class Main extends Component {
                                 </button>
                             </div>
                             <div style={{textAlign: 'center'}}>
-                                <button type="button" className="btn btn-default" style={styles.cancelMulBtn}>
+                                <button onClick={this.MultihandleClose} type="button" className="btn btn-default" style={styles.cancelMulBtn}>
                                     <p style={{color: 'white'}}>Cancel</p>
                                 </button>   
                             </div>

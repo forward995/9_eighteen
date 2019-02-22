@@ -71,8 +71,18 @@ class Contents extends Component {
                         </div>
                         <div className="col-sm-6" style={{textAlign: "right", display: 'grid', alignItems: 'center'}}>
                             <div>
-                                <a style={{fontFamily: "Charter - Roman",fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Edit</a><br />
+                                <a style={{fontFamily: "Charter - Roman",fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Edit</a>
+                                <img 
+                                    src={`${process.env.PUBLIC_URL}/assets/images/upTriangle.png`}
+                                    alt=""
+                                    style={{paddingLeft:'5%'}}
+                                /><br />
                                 <a style={{fontFamily: "Charter - Roman", color: '#f32362',fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Delete Item</a>
+                                <img 
+                                    src={`${process.env.PUBLIC_URL}/assets/images/downTriangle.png`}
+                                    alt=""
+                                    style={{paddingLeft:'5%'}}
+                                />
                             </div>
                         </div>
                     </div>
@@ -86,6 +96,7 @@ class Contents extends Component {
                             src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
                             alt=""
                             style={styles.icon}
+                            onClick={this.props.onClick}
                         />
                     </div>
                     <div className="col-sm-3"></div>
