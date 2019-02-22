@@ -55,20 +55,36 @@ class MainContent extends Component {
                     </div> */}
                     <div className="tab">
                         <button className="tablinks" style={styles.bgActive}>
-                            A
+                            <img 
+                                src={`${process.env.PUBLIC_URL}/assets/images/1.png`}
+                                alt=""
+                                style={styles.icon}
+                            />
                         </button>
                         <button className="tablinks" style={styles.bg}>
-                            B
+                            <img 
+                                src={`${process.env.PUBLIC_URL}/assets/images/2.png`}
+                                alt=""
+                                style={styles.icon}
+                            />
                         </button>
                         <button className="tablinks" style={styles.bg}>
-                            C
+                            <img 
+                                src={`${process.env.PUBLIC_URL}/assets/images/3.png`}
+                                alt=""
+                                style={styles.icon}
+                            />
                         </button>
                         <button className="tablinks" style={styles.bg}>
-                            D
+                            <img 
+                                src={`${process.env.PUBLIC_URL}/assets/images/4.png`}
+                                alt=""
+                                style={styles.icon}
+                            />
                         </button>
                         <button onClick={this.handleClick} className="tablinks" style={styles.bg}>
                             <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
+                                src={`${process.env.PUBLIC_URL}/assets/images/5.png`}
                                 alt=""
                                 style={styles.icon}
                             />

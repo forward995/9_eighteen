@@ -4,6 +4,7 @@ import { history } from '../history'
 
 export const userActions = {
     signin,
+    signup,
     signout
 }
 
@@ -31,6 +32,35 @@ function signin(email, password) {
     function success(user) {
         return {
             type: userConstants.SIGNIN_SUCCESS,
+            user
+        }
+    }
+}
+
+function signup(user) {
+    return dispatch => {
+        dispatch(request(user))
+        userService.signup(user)
+            .then(
+                user => {
+                    dispatch(success())
+                    history.push('/')
+                    console.log('success')
+                },
+                error => {
+                    console.log('error')
+                }
+            )
+    }
+    function request(user) {
+        return {
+            type: userConstants.SIGNUP_REQUEST,
+            user
+        }
+    }
+    function success() {
+        return {
+            type: userConstants.SIGNUP_SUCCESS,
             user
         }
     }

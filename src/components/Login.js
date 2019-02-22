@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // import {Link} from 'react-router-dom'
 import { userActions } from '../actions'
 import { connect } from 'react-redux';
+
 // import axios from 'axios'
 
 const styles = {
@@ -60,6 +61,14 @@ const styles = {
         borderRadius: 10,
         backgroundColor: "#007de9",
         marginTop: 20,
+    },
+    registerBtn: {
+        width: 250,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: "#ffffff",
+        marginTop: 20,
+        border: '1px solid #000000'
     }
 }
 
@@ -88,6 +97,10 @@ class Login extends Component {
             dispatch(userActions.signin(email, password))
         }
     }
+
+    handleClick = () => {
+        this.props.history.push('/register')
+    }
     
     render() {
         const {email, password} = this.state
@@ -100,31 +113,34 @@ class Login extends Component {
                         style={styles.logo}
                     />
                     <form onSubmit={this.handleSubmit}>
-                    <div style={styles.card}>
-                        <input 
-                            placeholder="  Useremail"
-                            type="email"
-                            name="email"
-                            value={email} 
-                            onChange={this.handleChange}
-                            style={styles.userInput}
-                        />
-                        <input 
-                            placeholder="  Password" 
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={this.handleChange}
-                            style={styles.userPassword}
-                        />
-                        <a style={styles.forgot} href="#">
-                            Forgot the Password?
-                        </a>
-                    </div>
-                    <button type="submit" className="btn btn-primary" style={styles.btn}>
-                        <p style={{color: 'white'}}>Log In</p>
-                    </button>
+                        <div style={styles.card}>
+                            <input 
+                                placeholder="  Useremail"
+                                type="email"
+                                name="email"
+                                value={email} 
+                                onChange={this.handleChange}
+                                style={styles.userInput}
+                            />
+                            <input 
+                                placeholder="  Password" 
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={this.handleChange}
+                                style={styles.userPassword}
+                            />
+                            <a style={styles.forgot} href="#">
+                                Forgot the Password?
+                            </a>
+                        </div>
+                        <button type="submit" className="btn btn-primary" style={styles.btn}>
+                            <p style={{color: 'white'}}>Log In</p>
+                        </button>
                     </form>
+                    <button onClick={this.handleClick} type="submit" className="btn btn-default" style={styles.registerBtn}>
+                        <p style={{color: '#000000'}}>Register</p>
+                    </button>
                 </div>
             </div>
         );

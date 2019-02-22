@@ -1,5 +1,6 @@
 export const userService = {
     signin,
+    signup,
     signout
 }
 
@@ -19,6 +20,15 @@ function signin(email, password) {
             }
             return user;
         })
+}
+
+function signup(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+    }
+    return fetch(`${baseURL}/api/signup`, requestOptions).then(handleResponse)
 }
 
 function signout() {
