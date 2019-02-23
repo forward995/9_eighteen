@@ -10,16 +10,6 @@ import {Provider} from 'react-redux'
 import {store} from '../store'
 class App extends Component {
   render() {
-    // return (
-    //   <div>
-    //     <Router history={history}>
-    //       <div>
-    //         <Route exact path='/' component={Login}/>
-    //         <PrivateRoute path='/home' component={Home}/>
-    //       </div>
-    //     </Router>
-    //   </div>
-    // );
     return (
         <Provider store={store}>
           <BrowserRouter>

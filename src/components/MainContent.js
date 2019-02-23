@@ -41,18 +41,10 @@ class MainContent extends Component {
         }
     }
 
-    // handleClick = () => {
-    //     this.setState({
-    //         isOpen: !this.state.isOpen
-    //     })
-    // }
     render() {
         return (
             <div>
                 <div style={{paddingLeft: '17.5%', boxShadow: "0 3px 18px rgba(203, 203, 203, 0.49)"}}>
-                    {/* <div style={styles.bg}>
-                        asd
-                    </div> */}
                     <div className="tab">
                         <button className="tablinks" style={styles.bgActive}>
                             <img 
