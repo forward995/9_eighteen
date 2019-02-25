@@ -74,7 +74,7 @@ const styles = {
     }
 }
 
-class MainContentModal extends Component {
+class EditItemModal extends Component {
     render() {
         return (
             <div style={{display: 'block'}}>
@@ -104,27 +104,15 @@ class MainContentModal extends Component {
                             </select>
                         </div>
                     </div>
-                    <div style={styles.card1}>
-                        <div style={{display: 'block'}}>
-                            <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/Combined_Shape.png`} 
-                                alt=""
-                            />
-                            <p style={styles.txt}>
-                                Add another item to<br/>
-                                this menu
-                            </p>
-                        </div>
-                    </div>
                 </div>
                 <div style={{display: 'block'}}>
                     <div>
                         <button type="button" className="btn btn-primary" style={styles.doneBtn}>
-                            <p style={{color: 'white'}}>Done</p>
+                            <p style={{color: 'white'}}>Update</p>
                         </button>
                     </div>
                     <div>
-                        <button onClick={this.props.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                        <button onClick={this.props.handleEditItemClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
                             <p style={{color: 'white'}}>Cancel</p>
                         </button>   
                     </div>
@@ -134,4 +122,4 @@ class MainContentModal extends Component {
     }
 }
 
-export default MainContentModal;
+export default EditItemModal;

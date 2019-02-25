@@ -83,7 +83,12 @@ class MainContent extends Component {
                         </button>
                     </div>
                     <div className="tabcontent">
-                        <Contents onClick={this.props.handleOnClick}/>
+                        <Contents 
+                            onClick={this.props.handleOnClick}
+                            handleSubCategoryClick={this.props.handleSubCategoryClick}
+                            handleEditCategoryClick={this.props.handleEditCategoryClick}
+                            handleEditItemClick={this.props.handleEditItemClick}
+                        />
                     </div>
                 </div>
             </div>

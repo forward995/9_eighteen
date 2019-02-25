@@ -63,7 +63,10 @@ class MainHeader extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showModal: false
+            showModal: false,
+            tab1: true,
+            tab2: false,
+            tab3: false
         }
     }
     handleClick = () => {
@@ -77,18 +80,39 @@ class MainHeader extends Component {
             showModal: !this.state.showModal
         })
     }
+    handleTab1 = () => {
+        this.setState({
+            tab1: true,
+            tab2: false,
+            tab3: false
+        })
+    }
+    handleTab2 = () => {
+        this.setState({
+            tab1: false,
+            tab2: true,
+            tab3: false
+        })
+    }
+    handleTab3 = () => {
+        this.setState({
+            tab1: false,
+            tab2: false,
+            tab3: true
+        })
+    }
     render() {
         return (
             <div>
             <ul className="nav" style={styles.tab}>
                 <li className="nav-item">
-                    <a className="nav-link active" href="#" style={styles.txt1}>Cart Driver (Default)</a>
+                    <a className="nav-link active" href="#" onClick={this.handleTab1} style={this.state.tab1? styles.txt1: styles.txt2}>Cart Driver (Default)</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#" style={styles.txt2}>Halfway</a>
+                    <a className="nav-link" href="#" onClick={this.handleTab2} style={this.state.tab2? styles.txt1: styles.txt2} >Halfway</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#" style={styles.txt2}>Clubhouse</a>
+                    <a className="nav-link" href="#" onClick={this.handleTab3} style={this.state.tab3? styles.txt1: styles.txt2} >Clubhouse</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="#" onClick={this.handleClick} style={styles.txt3}>Details</a>

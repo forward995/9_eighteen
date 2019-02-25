@@ -104,7 +104,7 @@ class EditModal extends Component {
                     <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
                         <div className="col-sm-6">
                             {/* <p style={styles.txt1}>Description</p> */}
-                            <div class="form-group">
+                            <div className="form-group">
                                 <p style={styles.txt1}>Description</p>
                                 <textarea className="form-control" rows="5" style={{width: 310}}></textarea>
                             </div>

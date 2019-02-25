@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 const styles = {
     card: {
         width: 250,
-        height: 245,
+        height: 80,
         boxShadow: "0 3px 18px rgba(203,203,203,0.49)",
         borderRadius: 10,
         backgroundColor: '#ffffff',
@@ -11,10 +11,10 @@ const styles = {
     },
     card1: {
         width: 250,
-        height: 190,
-        boxShadow: "0 3px 18px rgba(203,203,203,0.49)",
+        height: 80,
+        boxShadow: "0 3px 18px rgba(122,122,122,0.49)",
         borderRadius: 10,
-        marginLeft: '20px',
+        marginLeft: '16px',
         textAlign: "center",
         border: '2px dashed #ffffff',
         justifyContent: "center",
@@ -51,7 +51,8 @@ const styles = {
         fontFamily: 'Charter - Bold',
         fontSize: 14,
         fontWeight: 700,
-        paddingTop: 10
+        paddingTop: 5,
+        marginBottom: 0
     },
     doneBtn: {
         width: 250,
@@ -68,41 +69,18 @@ const styles = {
         marginTop: 20,
         border: "1px solid #ffffff"
     },
-    dropdownMenu: {
-        marginLeft: 20,
-        marginRight: 20
-    }
 }
 
-class MainContentModal extends Component {
+class AddSubCategoryModal extends Component {
     render() {
         return (
             <div style={{display: 'block'}}>
                 <div style={{display: 'flex'}}>
                     <div style={styles.card}>
                         <input 
-                            placeholder="  Item Name" 
+                            placeholder="  Subcategory Name" 
                             style={styles.itemNameInput}
                         />
-                        <input 
-                            placeholder="  Configuration" 
-                            style={styles.configurationInput}
-                        />
-                        <div style={{display: 'flex', alignItems: 'baseline'}}>
-                            <p style={{marginLeft: 20}}>$</p>
-                            <input 
-                                placeholder="" 
-                                style={styles.moneyInput}
-                            />
-                        </div>
-                        <div style={styles.dropdownMenu}>
-                            <select className="custom-select" id="inputGroupSelect03">
-                                <option defaultValue="selected">None</option>
-                                <option value={1}>One</option>
-                                <option value={2}>Two</option>
-                                <option value={3}>Three</option>
-                            </select>
-                        </div>
                     </div>
                     <div style={styles.card1}>
                         <div style={{display: 'block'}}>
@@ -111,8 +89,7 @@ class MainContentModal extends Component {
                                 alt=""
                             />
                             <p style={styles.txt}>
-                                Add another item to<br/>
-                                this menu
+                                Add another subcategory
                             </p>
                         </div>
                     </div>
@@ -124,7 +101,7 @@ class MainContentModal extends Component {
                         </button>
                     </div>
                     <div>
-                        <button onClick={this.props.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                        <button onClick={this.props.handleSubCategoryClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
                             <p style={{color: 'white'}}>Cancel</p>
                         </button>   
                     </div>
@@ -134,4 +111,4 @@ class MainContentModal extends Component {
     }
 }
 
-export default MainContentModal;
+export default AddSubCategoryModal;
