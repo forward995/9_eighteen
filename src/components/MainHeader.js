@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import MainHeaderModal from './Modals/MainHeaderModal'
@@ -49,33 +50,39 @@ const styles = {
 }
 
 class MainHeader extends Component {
-    // eslint-disable-next-line no-useless-constructor
+    
     constructor(props) {
         super(props)
         this.state = {
             showModal: false,
             activeIndex: false,
             showEditModal: false,
+            courses: '',
+            course: ''
         }
     }
 
     componentDidMount() {
-        this.props.dispatch(courseActions.courseGet())    
+        this.props.dispatch(courseActions.courseGet()) 
     }
+
     handleClick = () => {
         this.setState({
             showModal: !this.state.showModal,
         })
     }
+
     handleClose = () => {
         this.setState({
             showModal: !this.state.showModal
         })
     }
+
     handleCourse = (index) => {
         this.setState({ activeIndex: index })
         console.log(this.state.active)
     }
+
     handleEditClick(id){
         alert(id)
         this.setState({
@@ -83,12 +90,14 @@ class MainHeader extends Component {
         })
         this.props.dispatch(courseActions.courseEdit(id))
     }
+
     handleEditClose = () => {
         this.setState({
             showModal: !this.state.showModal,
             showEditModal: !this.state.showEditModal
         })
     }
+
     render() {
         const {courses, course} = this.props
         return (
@@ -142,6 +151,7 @@ class MainHeader extends Component {
 MainHeader.propTypes = {
     dispatch: PropTypes.func.isRequired
 }
+
 function mapStateToProps(state) {
     const {courses, course} =  state.course
     console.log(courses,course)
