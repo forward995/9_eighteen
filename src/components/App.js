@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Router, Route, BrowserRouter} from 'react-router-dom';
+import {Router, Route, BrowserRouter} from 'react-router-dom'
 import Login from './Login'
 import Home from './Home'
 import Register from './Register'
 import '../styles.css'
-import { PrivateRoute } from '../PrivateRoute';
+import { PrivateRoute } from '../PrivateRoute'
 import {history} from '../history'
 import {Provider} from 'react-redux'
 import {store} from '../store'

@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-constructor */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 
@@ -61,24 +60,21 @@ const styles = {
     }
 }
 
-class EditModal extends Component {
-    constructor(props){
-        super(props)
-    }
+class AddCourseModal extends Component {
     render() {
         return (
             <div style={{display: 'block'}}>
                 <div style={styles.card}>
                     <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
                         <div className="col-sm-6">
-                            <p style={styles.txt1}>{this.props.course.courseName}</p>
+                            <p style={styles.txt1}>Cart Driver(Default)</p>
                         </div>
                         <div className="col-sm-6" style={{textAlign: 'right'}}>
                             <a style={styles.txt2}>Rename</a>
                             <a style={styles.txt3}>Delete</a>
                         </div> 
                     </div>
-                    <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
+                    {/* <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
                         <div className="col-sm-6">
                             <p style={styles.txt1}>Service Range*</p>
                         </div>
@@ -104,7 +100,7 @@ class EditModal extends Component {
                                 </div>
                             </div>
                         </div> 
-                    </div>
+                    </div> */}
                     <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
                         <div className="col-sm-6">
                             {/* <p style={styles.txt1}>Description</p> */}
@@ -121,7 +117,7 @@ class EditModal extends Component {
                     </button>
                 </div>
                 <div>
-                    <button type="button" onClick={this.props.handleEditClose} className="btn btn-default" style={styles.cancelBtn}>
+                    <button type="button" className="btn btn-default" style={styles.cancelBtn}>
                         <p style={{color: 'white'}}>Cancel</p>
                     </button>   
                 </div>
@@ -130,4 +126,4 @@ class EditModal extends Component {
     }
 }
 
-export default EditModal;
+export default AddCourseModal;

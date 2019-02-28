@@ -1,5 +1,10 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
+
+// import { connect } from 'react-redux'
+// import PropTypes from 'prop-types'
+// import { courseActions } from '../../actions/course.actions';
 
 const styles = {
     card: {
@@ -41,59 +46,92 @@ const styles = {
     icon: {
         width: 30,
         height: 30,
-    }
+    },
+    doneBtn: {
+        width: 344,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: "#007de9",
+        marginTop: 20,
+    },
+    cancelBtn: {
+        width: 344,
+        height: 40,
+        borderRadius: 10,
+        // backgroundColor: "#007de9",
+        marginTop: 20,
+        border: "1px solid #ffffff"
+    },
 }
 
 class MainHeaderModal extends Component {
+    constructor(props){
+        super(props)
+    }
+    handleEdit(id) {
+        alert(id)
+        this.props.handleEditClick(id)
+    }
     render() {
         return (
-            <div style={styles.card}>
-                <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
-                    <div className="col-sm-6">
-                        <p style={styles.txt1}>Cart Driver(Default)</p>
+                <div>
+                    <div style={styles.card}>                    
+                        {
+                            this.props.courses.map(item => (
+                                <div key={item._id} style={{padding: 0}}>
+                                    <div className="col-sm-12" style={{ padding:"5px 0px 0px 0px", display: 'flex', alignItems: 'baseline'}}>
+                                        <div className="col-sm-6">
+                                            <p style={styles.txt1}>{item.courseName}</p>
+                                        </div>
+                                        <div className="col-sm-6" style={{textAlign: 'right'}}>
+                                            <a onClick={(id) => this.handleEdit(item._id)} style={styles.txt2}>Edit</a>
+                                            <a style={styles.txt3}>Delete</a>
+                                        </div>
+                                    </div>
+                                    <hr style={styles.hrLine}></hr>
+                                </div>
+                            ))
+                        }
+                        <div className="col-sm-12" style={{display:'flex', paddingBottom: 12}}>
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-6" style={{display:'flex', justifyContent:'center'}}>
+                                <img 
+                                    src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
+                                    alt=""
+                                    style={styles.icon}
+                                />
+                            </div>
+                            <div className="col-sm-3"></div>
+                        </div>
+                        <hr style={styles.hrLineEnd}></hr>
                     </div>
-                    <div className="col-sm-6" style={{textAlign: 'right'}}>
-                        <a style={styles.txt2}>Edit</a>
-                        <a style={styles.txt3}>Delete</a>
-                    </div> 
+                    <div>
+                        <button type="button" className="btn btn-primary" style={styles.doneBtn}>
+                            <p style={{color: 'white'}}>Done</p>
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={this.props.onClick} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                            <p style={{color: 'white'}}>Cancel</p>
+                        </button>   
+                    </div>
                 </div>
-                <hr style={styles.hrLine}></hr>
-                <div className="col-sm-12" style={{padding:0, display: 'flex', alignItems: 'baseline'}}>
-                    <div className="col-sm-6">
-                        <p style={styles.txt1}>Halfway House</p>
-                    </div>
-                    <div className="col-sm-6" style={{textAlign: 'right'}}>
-                        <a style={styles.txt2}>Edit</a>
-                        <a style={styles.txt3}>Delete</a>
-                    </div>
-                </div>
-                <hr style={styles.hrLine}></hr>
-                <div className="col-sm-12" style={{padding:0, display: 'flex', alignItems: 'baseline'}}>
-                    <div className="col-sm-6">
-                        <p style={styles.txt1}>Clubhouse</p>
-                    </div>
-                    <div className="col-sm-6" style={{textAlign: 'right'}}>
-                        <a style={styles.txt2}>Edit</a>
-                        <a style={styles.txt3}>Delete</a>
-                    </div>
-                </div>
-                <hr style={styles.hrLine}></hr>
-
-                <div className="col-sm-12" style={{display:'flex', paddingBottom: 12}}>
-                    <div className="col-sm-3"></div>
-                    <div className="col-sm-6" style={{display:'flex', justifyContent:'center'}}>
-                        <img 
-                            src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
-                            alt=""
-                            style={styles.icon}
-                        />
-                    </div>
-                    <div className="col-sm-3"></div>
-                </div>
-                <hr style={styles.hrLineEnd}></hr>
-            </div>
         );
     }
 }
 
-export default MainHeaderModal;
+// MainHeaderModal.propTypes = {
+//     // courses: PropTypes.arrayOf.isRequired,
+//     dispatch: PropTypes.func.isRequired
+// }
+// function mapStateToProps(state) {
+//     const {courses, course} =  state.course
+//     // console.log(courses, course)
+//     return {
+//         courses,
+//         course
+//     }
+// }
+
+
+export default MainHeaderModal
