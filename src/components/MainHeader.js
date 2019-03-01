@@ -89,8 +89,9 @@ class MainHeader extends Component {
     }
 
     handleCourse = (index) => {
+        alert(index)
         this.setState({ activeIndex: index })
-        console.log(this.state.active)
+        this.props.getCourseId(index)
     }
 
     handleEditClick(id){
@@ -152,10 +153,10 @@ class MainHeader extends Component {
                                 {
                                     !this.state.showEditModal&&!this.state.showAddModal&&                
                                         <MainHeaderModal 
-                                        courses={this.props.courses} 
-                                        onClick={this.handleClose}
-                                        handleEditClick={(id) => this.handleEditClick(id)}
-                                        handleAdd={this.handleAdd}
+                                            courses={this.props.courses} 
+                                            onClick={this.handleClose}
+                                            handleEditClick={(id) => this.handleEditClick(id)}
+                                            handleAdd={this.handleAdd}
                                         />
                                 }
                                 {

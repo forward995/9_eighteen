@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 
 const styles = {
@@ -69,6 +70,26 @@ const styles = {
 }
 
 class AddCategoryModal extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            drinkName: 1,
+            shopName: 2,
+            specialName: 3,
+            foodName: 4,
+            categoryName: ''
+        }
+    }
+    handleChange = (e) => {
+        const {name, value} = e.target
+        this.setState({
+            [name]: value
+        })
+        console.log(this.state.categoryName)
+    }
+    handleClick = () => {
+        alert(this.state.drinkName)
+    }
     render() {
         return (
             <div style={{display: 'block'}}>
@@ -83,6 +104,7 @@ class AddCategoryModal extends Component {
                                     src={`${process.env.PUBLIC_URL}/assets/images/1.png`}
                                     alt=""
                                     style={styles.icon}
+                                    onClick={this.handleClick}
                                 />
                             </div>
                             <label style={styles.iconText}>Drink</label>
@@ -93,6 +115,7 @@ class AddCategoryModal extends Component {
                                     src={`${process.env.PUBLIC_URL}/assets/images/2.png`}
                                     alt=""
                                     style={styles.icon}
+                                    name="foodName"
                                 />
                             </div>
                             <label style={styles.iconText}>Food</label>
@@ -103,6 +126,7 @@ class AddCategoryModal extends Component {
                                     src={`${process.env.PUBLIC_URL}/assets/images/3.png`}
                                     alt=""
                                     style={styles.icon}
+                                    name="shopName"
                                 />
                             </div>
                             <label style={styles.iconText}>Shop</label>
@@ -113,6 +137,7 @@ class AddCategoryModal extends Component {
                                     src={`${process.env.PUBLIC_URL}/assets/images/4.png`}
                                     alt=""
                                     style={styles.icon}
+                                    name="specialName"
                                 />
                             </div>
                             <label style={styles.iconText}>Special</label>
@@ -121,6 +146,9 @@ class AddCategoryModal extends Component {
                     <input 
                         placeholder="  Category Title" 
                         style={styles.categoryTitleInput}
+                        name="categoryName"
+                        onChange={this.handleChange}
+                        value={this.state.categoryName}
                     />
                 </div>
                 <div>

@@ -15,7 +15,8 @@ export function course(state={}, action) {
             return {}
         case userConstants.COURSE_EDIT_SUCCESS:
             return Object.assign({}, state, {
-                course: action.course
+                course: action.course,
+                courses: action.courses
             })
         case userConstants.COURSE_UPDATE_REQUEST:
             return {}

@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 import Contents from './Contents'
 
+// import { connect } from 'react-redux'
+// import PropTypes from 'prop-types'
+// import { categoryActions } from '../actions/category.actions';
+
 const styles = {
     bg: {
         background: '#ffffff',
@@ -37,16 +41,24 @@ class MainContent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isOpen: false
+            isOpen: false,
+            categories: '',
+            activeIndex: false,
         }
     }
 
+    handleCategory = (index) => {
+        alert(index)
+        this.setState({ activeIndex: index })
+    }
+
     render() {
+        const { categories } = this.props
         return (
             <div>
                 <div style={{paddingLeft: '17.5%', boxShadow: "0 3px 18px rgba(203, 203, 203, 0.49)"}}>
                     <div className="tab">
-                        <button className="tablinks" style={styles.bgActive}>
+                        {/* <button className="tablinks" style={styles.bgActive}>
                             <img 
                                 src={`${process.env.PUBLIC_URL}/assets/images/1.png`}
                                 alt=""
@@ -73,7 +85,18 @@ class MainContent extends Component {
                                 alt=""
                                 style={styles.icon}
                             />
-                        </button>
+                        </button> */}
+                        {
+                            categories&&categories.map((item, index) => (
+                                <button key={item._id} onClick={() => this.handleCategory(item._id)} index={item._id} className="tablinks" style={this.state.activeIndex===item._id? styles.bgActive: styles.bg}>
+                                    <img
+                                        src={`${process.env.PUBLIC_URL}/assets/images/${item.categoryIcon}.png`}
+                                        alt=""
+                                        style={styles.icon}
+                                    />
+                                </button>
+                            ))
+                        }
                         <button onClick={this.props.onClick} className="tablinks" style={styles.bg}>
                             <img 
                                 src={`${process.env.PUBLIC_URL}/assets/images/5.png`}
@@ -83,12 +106,16 @@ class MainContent extends Component {
                         </button>
                     </div>
                     <div className="tabcontent">
-                        <Contents 
-                            onClick={this.props.handleOnClick}
-                            handleSubCategoryClick={this.props.handleSubCategoryClick}
-                            handleEditCategoryClick={this.props.handleEditCategoryClick}
-                            handleEditItemClick={this.props.handleEditItemClick}
-                        />
+                        {
+                            categories&&this.props.categories&&
+                            <Contents 
+                                onClick={this.props.handleOnClick}
+                                handleSubCategoryClick={this.props.handleSubCategoryClick}
+                                handleEditCategoryClick={this.props.handleEditCategoryClick}
+                                handleEditItemClick={this.props.handleEditItemClick}
+                                categories={this.props.categories}
+                            />
+                        }
                     </div>
                 </div>
             </div>
@@ -96,4 +123,18 @@ class MainContent extends Component {
     }
 }
 
-export default MainContent;
+
+// MainContent.propTypes = {
+//     dispatch: PropTypes.func.isRequired
+// }
+
+// function mapStateToProps(state) {
+//     const {categories} =  state.category
+//     console.log(categories)
+//     return {
+//         categories
+//     }
+// }
+
+// export default connect(mapStateToProps)(MainContent);
+export default MainContent

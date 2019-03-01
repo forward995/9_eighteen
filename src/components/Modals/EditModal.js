@@ -72,8 +72,8 @@ class EditModal extends Component {
             editState: false,
             course: {
                 id: '',
-                courseTitle: '',
-                courseDescription: ''
+                courseName: '',
+                description: ''
             }
         }
     }
@@ -98,7 +98,6 @@ class EditModal extends Component {
         const { course } = this.state
         console.log(course)
         this.props.dispatch(courseActions.courseUpdate(course))
-        this.props.dispatch(courseActions.courseGet())
     }
     render() {
         return (
@@ -117,9 +116,9 @@ class EditModal extends Component {
                                 this.state.editState&&
                                 <input 
                                     type="text"
-                                    name="courseTitle"
+                                    name="courseName"
                                     onChange={this.handleChange}
-                                    value={this.state.courseTitle}
+                                    value={this.state.courseName}
                                 />
                             }
                         </div>
@@ -171,8 +170,8 @@ class EditModal extends Component {
                                         rows="5" 
                                         style={{width: 310}}
                                         onChange={this.handleChange}
-                                        value={this.state.courseDescription}
-                                        name="courseDescription"
+                                        value={this.state.description}
+                                        name="description"
                                     ></textarea>
                                 }
                             </div>

@@ -11,6 +11,10 @@ import AddSubCategoryModal from './Modals/AddSubCategoryModal'
 import EditCategoryModal from './Modals/EditCategoryModal';
 import EditItemModal from './Modals/EditItemModal';
 
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { categoryActions } from '../actions/category.actions';
+
 const styles = {
     modal: {
         position: 'absolute',
@@ -92,10 +96,14 @@ class Main extends Component {
             showEditItemModal: !this.state.showEditItemModal
         })
     }
+
+    getCourseId (id) {
+        this.props.dispatch(categoryActions.categoryGet(id))
+    }
     render() {
         return (
             <div>
-                <MainHeader />
+                <MainHeader getCourseId={(id)=> this.getCourseId(id)}/>
                 <div className="col-sm-12" style={{display: 'flex', marginTop: '1%'}}>
                     <div className="col-sm-8">
                         <MainContent 
@@ -104,6 +112,7 @@ class Main extends Component {
                             handleSubCategoryClick={this.handleSubCategoryClick}
                             handleEditCategoryClick={this.handleEditCategoryClick}
                             handleEditItemClick={this.handleEditItemClick}
+                            categories={this.props.categories}
                         />
                     </div>
                     <div className="col-sm-4">
@@ -159,4 +168,17 @@ class Main extends Component {
     }
 }
 
-export default Main;
+
+Main.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    const {categories} =  state.category
+    console.log(categories)
+    return {
+        categories
+    }
+}
+
+export default connect(mapStateToProps)(Main)
