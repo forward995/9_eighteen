@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import Contents from './Contents'
 
-// import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 // import { categoryActions } from '../actions/category.actions';
 
 const styles = {
@@ -58,37 +58,9 @@ class MainContent extends Component {
             <div>
                 <div style={{paddingLeft: '17.5%', boxShadow: "0 3px 18px rgba(203, 203, 203, 0.49)"}}>
                     <div className="tab">
-                        {/* <button className="tablinks" style={styles.bgActive}>
-                            <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/1.png`}
-                                alt=""
-                                style={styles.icon}
-                            />
-                        </button>
-                        <button className="tablinks" style={styles.bg}>
-                            <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/2.png`}
-                                alt=""
-                                style={styles.icon}
-                            />
-                        </button>
-                        <button className="tablinks" style={styles.bg}>
-                            <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/3.png`}
-                                alt=""
-                                style={styles.icon}
-                            />
-                        </button>
-                        <button className="tablinks" style={styles.bg}>
-                            <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/4.png`}
-                                alt=""
-                                style={styles.icon}
-                            />
-                        </button> */}
                         {
                             categories&&categories.map((item, index) => (
-                                <button key={item._id} onClick={() => this.handleCategory(item._id)} index={item._id} className="tablinks" style={this.state.activeIndex===item._id? styles.bgActive: styles.bg}>
+                                <button key={index} onClick={() => this.handleCategory(item._id)} index={item._id} className="tablinks" style={this.state.activeIndex===item._id? styles.bgActive: styles.bg}>
                                     <img
                                         src={`${process.env.PUBLIC_URL}/assets/images/${item.categoryIcon}.png`}
                                         alt=""
@@ -124,17 +96,17 @@ class MainContent extends Component {
 }
 
 
-// MainContent.propTypes = {
-//     dispatch: PropTypes.func.isRequired
-// }
+MainContent.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+}
 
-// function mapStateToProps(state) {
-//     const {categories} =  state.category
-//     console.log(categories)
-//     return {
-//         categories
-//     }
-// }
+function mapStateToProps(state) {
+    const {categories} =  state.category
+    console.log(categories)
+    return {
+        categories
+    }
+}
 
-// export default connect(mapStateToProps)(MainContent);
-export default MainContent
+export default connect(mapStateToProps)(MainContent);

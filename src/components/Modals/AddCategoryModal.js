@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 
@@ -77,7 +78,11 @@ class AddCategoryModal extends Component {
             shopName: 2,
             specialName: 3,
             foodName: 4,
-            categoryName: ''
+            categoryName: '',
+            drinkState: false,
+            shopState: false,
+            specialState: false,
+            foodState: false
         }
     }
     handleChange = (e) => {
@@ -87,8 +92,45 @@ class AddCategoryModal extends Component {
         })
         console.log(this.state.categoryName)
     }
-    handleClick = () => {
-        alert(this.state.drinkName)
+    handleClickDrink = () => {
+        this.setState({
+            drinkState: true,
+            shopState: false,
+            specialState: false,
+            foodState: false
+        })
+        this.state.categoryName&&this.state.drinkName&&
+        this.props.handleAddCategory(this.state.drinkName, this.state.categoryName)
+    }
+    handleClickFood = () => {
+        this.setState({
+            drinkState: false,
+            shopState: false,
+            specialState: false,
+            foodState: true
+        })
+        this.state.categoryName&&
+        this.props.handleAddCategory(this.state.foodName, this.state.categoryName)
+    }
+    handleClickShop = () => {
+        this.setState({
+            drinkState: false,
+            shopState: true,
+            specialState: false,
+            foodState: false
+        })
+        this.state.categoryName&&
+        this.props.handleAddCategory(this.state.shopName, this.state.categoryName)
+    }
+    handleClickSpecial = () => {
+        this.setState({
+            drinkState: false,
+            shopState: false,
+            specialState: true,
+            foodState: false
+        })
+        this.state.categoryName&&
+        this.props.handleAddCategory(this.state.specialName, this.state.categoryName)
     }
     render() {
         return (
@@ -98,46 +140,49 @@ class AddCategoryModal extends Component {
                         <label style={styles.categoryTitle}>Choose an icon</label>
                     </div>
                     <div style={{display: 'flex'}}>
-                        <div style={styles.iconActive}>
+                        <div style={this.state.drinkState? styles.iconActive: styles.iconNonActive}>
                             <div style={styles.bg}>
                                 <img 
                                     src={`${process.env.PUBLIC_URL}/assets/images/1.png`}
                                     alt=""
                                     style={styles.icon}
-                                    onClick={this.handleClick}
+                                    onClick={this.handleClickDrink}
                                 />
                             </div>
                             <label style={styles.iconText}>Drink</label>
                         </div>
-                        <div style={styles.iconNonActive}>
+                        <div style={this.state.foodState? styles.iconActive: styles.iconNonActive}>
                             <div style={styles.bg}>
                                 <img 
                                     src={`${process.env.PUBLIC_URL}/assets/images/2.png`}
                                     alt=""
                                     style={styles.icon}
                                     name="foodName"
+                                    onClick={this.handleClickFood}
                                 />
                             </div>
                             <label style={styles.iconText}>Food</label>
                         </div>
-                        <div style={styles.iconNonActive}>
+                        <div style={this.state.shopState? styles.iconActive: styles.iconNonActive}>
                             <div style={styles.bg}>
                                 <img 
                                     src={`${process.env.PUBLIC_URL}/assets/images/3.png`}
                                     alt=""
                                     style={styles.icon}
                                     name="shopName"
+                                    onClick={this.handleClickShop}
                                 />
                             </div>
                             <label style={styles.iconText}>Shop</label>
                         </div>
-                        <div style={styles.iconNonActive}>
+                        <div style={this.state.specialState? styles.iconActive: styles.iconNonActive}>
                             <div style={styles.bg}>
                                 <img 
                                     src={`${process.env.PUBLIC_URL}/assets/images/4.png`}
                                     alt=""
                                     style={styles.icon}
                                     name="specialName"
+                                    onClick={this.handleClickSpecial}
                                 />
                             </div>
                             <label style={styles.iconText}>Special</label>
@@ -151,7 +196,7 @@ class AddCategoryModal extends Component {
                         value={this.state.categoryName}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <button type="button" className="btn btn-primary" style={styles.doneBtn}>
                         <p style={{color: 'white'}}>Done</p>
                     </button>
@@ -160,7 +205,7 @@ class AddCategoryModal extends Component {
                     <button onClick={this.props.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
                         <p style={{color: 'white'}}>Cancel</p>
                     </button>   
-                </div>
+                </div> */}
             </div>
         );
     }

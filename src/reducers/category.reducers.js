@@ -1,6 +1,9 @@
 import { userConstants } from '../constants'
 
-export function category(state={}, action) {
+const initialState = {
+    categories:[]
+}
+export function category(state=initialState, action) {
     switch(action.type) {
         case userConstants.CATEGORY_GET_REQUEST:
             return {}
@@ -8,30 +11,32 @@ export function category(state={}, action) {
             return Object.assign({}, state, {
                 categories: action.categories
             })
-        // case userConstants.COURSE_GET_FAILURE:
-        //     return {}
+        case userConstants.CATEGORY_GET_FAILURE:
+            return {}
 
-        // case userConstants.COURSE_EDIT_REQUEST:
-        //     return {}
-        // case userConstants.COURSE_EDIT_SUCCESS:
-        //     return Object.assign({}, state, {
-        //         course: action.course,
-        //         courses: action.courses
-        //     })
-        // case userConstants.COURSE_UPDATE_REQUEST:
-        //     return {}
-        // case userConstants.COURSE_UPDATE_SUCCESS:
-        //     return {}
+        case userConstants.CATEGORY_EDIT_REQUEST:
+            return {}
+        case userConstants.CATEGORY_EDIT_SUCCESS:
+            return Object.assign({}, state, {
+                category: action.category,
+                categories: action.categories
+            })
+        case userConstants.CATEGORY_UPDATE_REQUEST:
+            return {}
+        case userConstants.CATEGORY_UPDATE_SUCCESS:
+            return {}
 
-        // case userConstants.COURSE_DELETE_REQUEST:
-        //     return {}
-        // case userConstants.COURSE_DELETE_SUCCESS:
-        //     return {}
+        case userConstants.CATEGORY_DELETE_REQUEST:
+            return {}
+        case userConstants.CATEGORY_DELETE_SUCCESS:
+            return {}
 
-        // case userConstants.COURSE_ADD_REQUEST:
-        //     return {}
-        // case userConstants.COURSE_ADD_SUCCESS:
-        //     return {}
+        case userConstants.CATEGORY_ADD_REQUEST:
+            return {}
+        case userConstants.CATEGORY_ADD_SUCCESS:
+            return Object.assign({}, state, {
+                categories: action.categories
+            })
 
         default:
             return state

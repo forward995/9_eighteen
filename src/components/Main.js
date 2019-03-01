@@ -26,6 +26,21 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         background: 'rgba(0,0,0,0.7)'
+    },
+    doneBtn: {
+        width: 250,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: "#007de9",
+        marginTop: 20,
+    },
+    cancelBtn: {
+        width: 250,
+        height: 40,
+        borderRadius: 10,
+        // backgroundColor: "#007de9",
+        marginTop: 20,
+        border: "1px solid #ffffff"
     }
 }
 
@@ -37,7 +52,12 @@ class Main extends Component {
             showMultiModal: false,
             showSubCategoryModal: false,
             showEditCategoryModal: false,
-            showEditItemModal: false
+            showEditItemModal: false,
+            category: {
+                courseId: '',
+                categoryName: '',
+                categoryIcon: '' 
+            }
         }
     }
 
@@ -98,7 +118,29 @@ class Main extends Component {
     }
 
     getCourseId (id) {
+        const {category} = this.state
+        this.setState({
+            category: {
+                ...category,
+                courseId: id   
+            }
+        })
         this.props.dispatch(categoryActions.categoryGet(id))
+    }
+
+    handleAddCategory = (categoryIcon, categoryName) => {
+        const {category} = this.state
+        this.setState({
+            category: {
+                ...category,
+                categoryName: categoryName,
+                categoryIcon: categoryIcon
+            }
+        })
+        this.props.dispatch(categoryActions.categoryAdd(category))&&
+        this.setState({
+            showModal: !this.state.showModal
+        })
     }
     render() {
         return (
@@ -133,7 +175,17 @@ class Main extends Component {
                     this.state.showModal&&
                     <div style={styles.modal}>
                         <div style={{display: 'block'}}>
-                            <AddCategoryModal handleClose={this.handleClose}/>
+                            <AddCategoryModal handleAddCategory={(categoryIcon, categoryName) => this.handleAddCategory(categoryIcon, categoryName)} />
+                            <div>
+                                <button onClick={this.handleAddCategory} type="button" className="btn btn-primary" style={styles.doneBtn}>
+                                    <p style={{color: 'white'}}>Done</p>
+                                </button>
+                            </div>
+                            <div>
+                                <button onClick={this.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                                    <p style={{color: 'white'}}>Cancel</p>
+                                </button>   
+                            </div>
                         </div>
                     </div>
                 }
@@ -170,7 +222,8 @@ class Main extends Component {
 
 
 Main.propTypes = {
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    categories: PropTypes.array.isRequired
 }
 
 function mapStateToProps(state) {

@@ -1,23 +1,23 @@
 export const categoryService = {
-    // courseAdd,
+    categoryAdd,
     categoryGet,
-    // courseEdit,
-    // courseUpdate,
-    // courseDelete
+    categoryEdit,
+    categoryUpdate,
+    categoryDelete
 }
 
 const baseURL = 'http://localhost:8000'
 
 
-// function courseAdd(course) {
-//     console.log("add")
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(course)
-//     }
-//     return fetch(`${baseURL}/api/courseAdd`, requestOptions).then(handleResponse)
-// }
+function categoryAdd(category) {
+    console.log("add")
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(category)
+    }
+    return fetch(`${baseURL}/api/categoryAdd`, requestOptions).then(handleResponse)
+}
 
 function categoryGet(id) {
     const requestOptions = {
@@ -29,31 +29,31 @@ function categoryGet(id) {
     return fetch(`${baseURL}/api/categories/${id}`, requestOptions).then(handleResponse)
 }
 
-// function courseEdit(id) {
-//     console.log(id)
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: {'Content-Type': 'application/json'}
-//     }
-//     return fetch(`${baseURL}/api/editCourse/${id}`, requestOptions).then(handleResponse)
-// }
+function categoryEdit(id) {
+    console.log(id)
+    const requestOptions = {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    }
+    return fetch(`${baseURL}/api/editCategory/${id}`, requestOptions).then(handleResponse)
+}
 
-// function courseUpdate(course) {
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(course)
-//     }
-//     return fetch(`${baseURL}/api/updateCourse/${course.id}`, requestOptions).then(handleResponse)
-// }
+function categoryUpdate(category) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(category)
+    }
+    return fetch(`${baseURL}/api/updateCategory/${category.id}`, requestOptions).then(handleResponse)
+}
 
-// function courseDelete(id) {
-//     const requestOptions = {
-//         method: 'DELETE',
-//         headers: {'Content-Type': 'application/json'},
-//     }
-//     return fetch(`${baseURL}/api/deleteCourse/${id}`, requestOptions).then(handleResponse)
-// }
+function categoryDelete(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+    }
+    return fetch(`${baseURL}/api/deleteCategory/${id}`, requestOptions).then(handleResponse)
+}
 
 function handleResponse(response) {
     return response.text().then(text => {
