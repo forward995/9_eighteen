@@ -2,9 +2,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 
-// import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
-// import { courseActions } from '../../actions/course.actions';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { courseActions } from '../../actions/course.actions';
 
 const styles = {
     card: {
@@ -72,12 +72,15 @@ class MainHeaderModal extends Component {
         alert(id)
         this.props.handleEditClick(id)
     }
+    handleDelete (id) {
+        this.props.dispatch(courseActions.courseDelete(id))
+    }
     render() {
         return (
                 <div>
                     <div style={styles.card}>                    
                         {
-                            this.props.courses.map(item => (
+                            this.props.courses&&this.props.courses.map(item => (
                                 <div key={item._id} style={{padding: 0}}>
                                     <div className="col-sm-12" style={{ padding:"5px 0px 0px 0px", display: 'flex', alignItems: 'baseline'}}>
                                         <div className="col-sm-6">
@@ -85,7 +88,7 @@ class MainHeaderModal extends Component {
                                         </div>
                                         <div className="col-sm-6" style={{textAlign: 'right'}}>
                                             <a onClick={(id) => this.handleEdit(item._id)} style={styles.txt2}>Edit</a>
-                                            <a style={styles.txt3}>Delete</a>
+                                            <a onClick={(id) => this.handleDelete(item._id)} style={styles.txt3}>Delete</a>
                                         </div>
                                     </div>
                                     <hr style={styles.hrLine}></hr>
@@ -99,6 +102,7 @@ class MainHeaderModal extends Component {
                                     src={`${process.env.PUBLIC_URL}/assets/images/plus.png`}
                                     alt=""
                                     style={styles.icon}
+                                    onClick={this.props.handleAdd}
                                 />
                             </div>
                             <div className="col-sm-3"></div>
@@ -119,19 +123,8 @@ class MainHeaderModal extends Component {
         );
     }
 }
+MainHeaderModal.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
 
-// MainHeaderModal.propTypes = {
-//     // courses: PropTypes.arrayOf.isRequired,
-//     dispatch: PropTypes.func.isRequired
-// }
-// function mapStateToProps(state) {
-//     const {courses, course} =  state.course
-//     // console.log(courses, course)
-//     return {
-//         courses,
-//         course
-//     }
-// }
-
-
-export default MainHeaderModal
+export default connect()(MainHeaderModal)

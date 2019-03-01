@@ -298,8 +298,8 @@ class AccountInfoModal extends Component {
                                     <input type="checkbox" value="" />I agree to receive emails and newsletters
                                 </label>
                             </div> */}
-                            <div onClick={this.handleCheckBox} style={{display: 'flex', alignItems: 'center',marginLeft: 30, paddingBottom: 20}}>
-                                <div style={styles.squareIcon}>
+                            <div style={{display: 'flex', alignItems: 'center',marginLeft: 30, paddingBottom: 20}}>
+                                <div onClick={this.handleCheckBox} style={styles.squareIcon}>
                                     {
                                         this.state.checkbox&&
                                         <img 

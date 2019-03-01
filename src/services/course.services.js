@@ -1,26 +1,24 @@
 // import axios from 'axios'
 export const courseService = {
-    // courseAdd,
+    courseAdd,
     courseGet,
     courseEdit,
-    // courseUpdate,
-    // courseDelete
+    courseUpdate,
+    courseDelete
 }
 
 const baseURL = 'http://localhost:8000'
 
 
-// function courseAdd(course) {
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(category)
-//     }
-//     return fetch(`${baseURL}/api/categoryAdd`, requestOptions)
-//         .then(category => {
-//             return category;
-//         })
-// }
+function courseAdd(course) {
+    console.log("add")
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(course)
+    }
+    return fetch(`${baseURL}/api/courseAdd`, requestOptions).then(handleResponse)
+}
 
 // async function courseGet() {
 //     const instance = axios.create({baseURL:baseURL})
@@ -53,22 +51,23 @@ function courseEdit(id) {
     return fetch(`${baseURL}/api/editCourse/${id}`, requestOptions).then(handleResponse)
 }
 
-// function categoryUpdate(category) {
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(category)
-//     }
-//     return fetch(`${baseURL}/api/categoryUpdate/${category.id}`, requestOptions)
-// }
+function courseUpdate(course) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(course)
+    }
+    return fetch(`${baseURL}/api/updateCourse/${course.id}`, requestOptions).then(handleResponse)
+}
 
-// function categoryDelete(id) {
-//     const requestOptions = {
-//         method: 'DELETE',
-//         headers: {'Content-Type': 'application/json'},
-//     }
-//     return fetch(`${baseURL}/api/categoryDelete/${id}`, requestOptions)
-// }
+function courseDelete(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+    }
+    return fetch(`${baseURL}/api/deleteCourse/${id}`, requestOptions).then(handleResponse)
+}
+
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);

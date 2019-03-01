@@ -17,6 +17,21 @@ export function course(state={}, action) {
             return Object.assign({}, state, {
                 course: action.course
             })
+        case userConstants.COURSE_UPDATE_REQUEST:
+            return {}
+        case userConstants.COURSE_UPDATE_SUCCESS:
+            return {}
+
+        case userConstants.COURSE_DELETE_REQUEST:
+            return {}
+        case userConstants.COURSE_DELETE_SUCCESS:
+            return {}
+
+        case userConstants.COURSE_ADD_REQUEST:
+            return {}
+        case userConstants.COURSE_ADD_SUCCESS:
+            return {}
+
         default:
             return state
     }

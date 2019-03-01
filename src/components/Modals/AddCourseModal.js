@@ -1,5 +1,9 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { courseActions } from '../../actions/course.actions';
 
 const styles = {
     card: {
@@ -57,73 +61,92 @@ const styles = {
         fontWeight: 400,
         fontFamily: 'Charter - Roman',
         paddingRight: 2
-    }
+    },
+    itemNameInput: {
+        width: 310,
+        height: 40,
+        border: '1px solid #d6d6d6',
+        backgroundColor: '#ffffff',
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 20
+    },
 }
 
 class AddCourseModal extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            course: {
+                courseName: '',
+                description: ''
+            }
+        }
+    }
+    handleChange = (e) => {
+        const {name, value} = e.target
+        const { course } = this.state
+        this.setState({
+            course: {
+                ...course,
+                [name]: value
+            }
+        });
+    } 
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const { course } = this.state
+        console.log(course)
+        this.props.dispatch(courseActions.courseAdd(course))
+    }
     render() {
+        const {course} = this.state
         return (
-            <div style={{display: 'block'}}>
-                <div style={styles.card}>
-                    <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
-                        <div className="col-sm-6">
-                            <p style={styles.txt1}>Cart Driver(Default)</p>
+            <form onSubmit={this.handleSubmit}>
+                <div style={{display: 'block'}}>
+                    <div style={styles.card}>
+                        <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
+                            <input 
+                                placeholder="  Course Name" 
+                                style={styles.itemNameInput}
+                                name="courseName"
+                                onChange={this.handleChange}
+                                value={course.courseName}
+                            />
                         </div>
-                        <div className="col-sm-6" style={{textAlign: 'right'}}>
-                            <a style={styles.txt2}>Rename</a>
-                            <a style={styles.txt3}>Delete</a>
-                        </div> 
-                    </div>
-                    {/* <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
-                        <div className="col-sm-6">
-                            <p style={styles.txt1}>Service Range*</p>
-                        </div>
-                        <div className="col-sm-6" style={{padding:0}}>
-                            <div className="form-check" style={{padding:0}}>
-                                <label style={{margin:0}}>
-                                    <input type="radio" name="radio" defaultChecked="true"/> <span className="label-text">Everywhere</span>
-                                </label>
-                            </div>
-                            <div className="form-check" style={{padding:0}}>
-                                <label style={{margin:0}}>
-                                    <input type="radio" name="radio"/> <span className="label-text">Specific Area</span>
-                                </label>
-                            </div>
-                            <div style={{display: 'flex', paddingTop: 10}}>
-                                <div>
-                                    <span style={styles.labelTxt}>Hole</span>
-                                    <input type="text" style={styles.textInput}/>
+                        <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
+                            <div className="col-sm-6">
+                                <div className="form-group">
+                                    <p style={styles.txt1}>Description</p>
+                                    <textarea 
+                                        className="form-control" 
+                                        rows="5" 
+                                        style={{width: 310}}
+                                        onChange={this.handleChange}
+                                        name="description"
+                                        value={course.description}
+                                    ></textarea>
                                 </div>
-                                <div>
-                                    <span style={styles.labelTxt}>to Hole</span>
-                                    <input type="text" style={styles.textInput}/>
-                                </div>
-                            </div>
-                        </div> 
-                    </div> */}
-                    <div className="col-sm-12" style={{padding:0, paddingTop:10, display: 'flex', alignItems: 'baseline'}}>
-                        <div className="col-sm-6">
-                            {/* <p style={styles.txt1}>Description</p> */}
-                            <div className="form-group">
-                                <p style={styles.txt1}>Description</p>
-                                <textarea className="form-control" rows="5" style={{width: 310}}></textarea>
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <button type="submit" className="btn btn-primary" style={styles.doneBtn}>
+                            <p style={{color: 'white'}}>Done</p>
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={this.props.handleAddClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                            <p style={{color: 'white'}}>Cancel</p>
+                        </button>   
+                    </div>
                 </div>
-                <div>
-                    <button type="button" className="btn btn-primary" style={styles.doneBtn}>
-                        <p style={{color: 'white'}}>Done</p>
-                    </button>
-                </div>
-                <div>
-                    <button type="button" className="btn btn-default" style={styles.cancelBtn}>
-                        <p style={{color: 'white'}}>Cancel</p>
-                    </button>   
-                </div>
-            </div>
+            </form>
         );
     }
 }
+AddCourseModal.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
 
-export default AddCourseModal;
+export default connect()(AddCourseModal);

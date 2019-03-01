@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { courseActions } from '../actions/course.actions';
 import EditModal from './Modals/EditModal';
+import AddCourseModal from './Modals/AddCourseModal';
 
 const styles = {
     tab: {
@@ -57,13 +58,22 @@ class MainHeader extends Component {
             showModal: false,
             activeIndex: false,
             showEditModal: false,
-            courses: '',
-            course: ''
+            showAddModal: false,
+            courses: {},
+            course: []
         }
     }
 
     componentDidMount() {
         this.props.dispatch(courseActions.courseGet()) 
+    }
+
+    componentWillReceiveProps () {
+        this.setState({ 
+            courses: this.props.courses
+        })
+        console.log(this.state.courses)
+        console.log(typeof this.props.courses)
     }
 
     handleClick = () => {
@@ -88,6 +98,7 @@ class MainHeader extends Component {
         this.setState({
             showEditModal: !this.state.showEditModal
         })
+        this.props.dispatch(courseActions.courseGet()) 
         this.props.dispatch(courseActions.courseEdit(id))
     }
 
@@ -95,6 +106,19 @@ class MainHeader extends Component {
         this.setState({
             showModal: !this.state.showModal,
             showEditModal: !this.state.showEditModal
+        })
+    }
+
+    handleAdd = () => {
+        this.setState({
+            showAddModal: !this.state.showAddModal
+        })
+    }
+
+    handleAddClose = () => {
+        this.setState({
+            showModal: !this.state.showModal,
+            showAddModal: !this.state.showAddModal
         })
     }
 
@@ -126,12 +150,13 @@ class MainHeader extends Component {
                         <div style={styles.modal}>
                             <div style={{display: 'block'}}>
                                 {
-                                    !this.state.showEditModal&&                
+                                    !this.state.showEditModal&&!this.state.showAddModal&&                
                                         <MainHeaderModal 
                                         courses={this.props.courses} 
                                         onClick={this.handleClose}
                                         handleEditClick={(id) => this.handleEditClick(id)}
-                                    />
+                                        handleAdd={this.handleAdd}
+                                        />
                                 }
                                 {
                                     this.state.showEditModal&&course&&
@@ -139,6 +164,12 @@ class MainHeader extends Component {
                                             handleEditClose={this.handleEditClose}
                                             course={this.props.course}
                                         />
+                                }
+                                {
+                                    this.state.showAddModal&&
+                                    <AddCourseModal 
+                                        handleAddClose={this.handleAddClose}
+                                    />
                                 }
                             </div>
                         </div>
