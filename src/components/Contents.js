@@ -68,18 +68,19 @@ const styles = {
 class Contents extends Component {
     constructor(props) {
         super(props)
+        console.log("sdfasdfsd"+this.props.categoryId)
     }
     render() {
         return (
             <div className="row">
                 <div className="col-sm-12" style={styles.txtLine}>
                     <div className="col-sm-6">
-                        <p style={styles.txt}>Drinks</p>
+                        <p style={styles.txt}>{this.props.categoryName}</p>
                     </div>
                     <div className="col-sm-6" style={{textAlign: "right"}}>
                         <div>
                             <a href="#" onClick={this.props.handleEditCategoryClick} style={styles.txt1}>Edit</a>
-                            <a href="#" style={styles.txt2}>Delete Category</a>
+                            <a href="#" onClick={this.props.handleDeleteCategoryClick} style={styles.txt2}>Delete Category</a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +88,7 @@ class Contents extends Component {
                 <div className="col-sm-12" style={{display:'flex'}}>
                     <div className="col-sm-3"></div>
                     <div className="col-sm-6" style={{display:'block'}}>
-                        <div className="col-sm-12" style={{display:'flex', paddingBottom: 20}}>
+                        {/* <div className="col-sm-12" style={{display:'flex', paddingBottom: 20}}>
                             <div className="col-sm-6" style={{textAlign: "left", display: 'flex', alignItems: 'center'}}>
                                 <div>
                                     <a style={{fontFamily: "Charter - Bold",fontSize: 14, fontWeight: 700}}>Coca-Cola</a><br />
@@ -110,8 +111,11 @@ class Contents extends Component {
                                     />
                                 </div>
                             </div>
-                        </div>
-                        <Subcategory handleSubCategoryClick={this.props.handleSubCategoryClick}/>
+                        </div> */}
+                        <Subcategory 
+                            categoryId={this.props.categoryId} 
+                            handleSubCategoryClick={this.props.handleSubCategoryClick}
+                        />
                         <Item handleEditItemClick={this.props.handleEditItemClick}/>
                     </div>
                     <div className="col-sm-3"></div>

@@ -1,4 +1,8 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { subCategoryActions } from '../../actions/subCategory.actions';
 
 const styles = {
     card: {
@@ -72,43 +76,93 @@ const styles = {
 }
 
 class AddSubCategoryModal extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            subCategory: {
+                subCategoryName: '',
+                categoryId: ''
+            }
+        }
+    }
+    async componentDidMount() {
+        const {subCategory} = this.state
+        await this.setState({
+            subCategory: {
+                ...subCategory,
+                categoryId:this.props.categoryId
+            }
+        })
+    }
+    handleChange = (e) => {   
+        const {subCategory} = this.state     
+        this.setState({
+            subCategory: {
+                ...subCategory,
+                subCategoryName: e.target.value,
+            }
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        alert(this.state.subCategory)
+        console.log(this.state.subCategory)
+        this.props.dispatch(subCategoryActions.subCategoryAdd(this.state.subCategory))
+    }
     render() {
+        const {subCategory} = this.state
         return (
-            <div style={{display: 'block'}}>
-                <div style={{display: 'flex'}}>
-                    <div style={styles.card}>
-                        <input 
-                            placeholder="  Subcategory Name" 
-                            style={styles.itemNameInput}
-                        />
-                    </div>
-                    <div style={styles.card1}>
-                        <div style={{display: 'block'}}>
-                            <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/Combined_Shape.png`} 
-                                alt=""
+            <form onSubmit={this.handleSubmit}>
+                <div style={{display: 'block'}}>
+                    <div style={{display: 'flex'}}>
+                        <div style={styles.card}>
+                            <input 
+                                placeholder="  Subcategory Name" 
+                                style={styles.itemNameInput}
+                                onChange={this.handleChange}
+                                value={subCategory.subCategoryName}
+                                name="subCategoryName"
                             />
-                            <p style={styles.txt}>
-                                Add another subcategory
-                            </p>
+                        </div>
+                        <div style={styles.card1}>
+                            <div style={{display: 'block'}}>
+                                <img 
+                                    src={`${process.env.PUBLIC_URL}/assets/images/Combined_Shape.png`} 
+                                    alt=""
+                                />
+                                <p style={styles.txt}>
+                                    Add another subcategory
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{display: 'block'}}>
+                        <div>
+                            <button type="submit" className="btn btn-primary" style={styles.doneBtn}>
+                                <p style={{color: 'white'}}>Done</p>
+                            </button>
+                        </div>
+                        <div>
+                            <button onClick={this.props.handleSubCategoryClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                                <p style={{color: 'white'}}>Cancel</p>
+                            </button>   
                         </div>
                     </div>
                 </div>
-                <div style={{display: 'block'}}>
-                    <div>
-                        <button type="button" className="btn btn-primary" style={styles.doneBtn}>
-                            <p style={{color: 'white'}}>Done</p>
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={this.props.handleSubCategoryClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
-                            <p style={{color: 'white'}}>Cancel</p>
-                        </button>   
-                    </div>
-                </div>
-            </div>
+            </form>
         );
     }
 }
+AddSubCategoryModal.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+}
 
-export default AddSubCategoryModal;
+const mapStateToProps = (state) => {
+    const {subCategory} =  state.subCategory
+    console.log(subCategory)
+    return {
+        subCategory
+    }
+}
+
+export default connect(mapStateToProps)(AddSubCategoryModal);

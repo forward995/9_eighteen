@@ -1,4 +1,3 @@
-/* eslint-disable no-mixed-operators */
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 
@@ -74,139 +73,92 @@ class AddCategoryModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            drinkName: 1,
-            shopName: 2,
-            specialName: 3,
-            foodName: 4,
-            categoryName: '',
-            drinkState: false,
-            shopState: false,
-            specialState: false,
-            foodState: false
+            Items: [
+                {id: '1', labelName: 'Drink'},
+                {id: '2', labelName: 'Food'},
+                {id: '3', labelName: 'Shop'},
+                {id: '4', labelName: 'Special'}
+            ],
+            activeIndex: false,
+            category: {
+                categoryIcon: '',
+                categoryName: '',
+                courseId: ''
+            }
         }
     }
+    handleClick (index) {
+        const {category} = this.state
+        this.setState({ activeIndex: index })
+        console.log(index)
+        this.setState({
+            category: {
+                ...category,
+                categoryIcon: index,
+                courseId: this.props.courseId
+            }
+        })
+    }
+    
     handleChange = (e) => {
-        const {name, value} = e.target
+        const { name, value } = e.target
+        const { category } = this.state
         this.setState({
-            [name]: value
+            category: {
+                ...category,
+                [name]: value
+            }
         })
-        console.log(this.state.categoryName)
     }
-    handleClickDrink = () => {
-        this.setState({
-            drinkState: true,
-            shopState: false,
-            specialState: false,
-            foodState: false
-        })
-        this.state.categoryName&&this.state.drinkName&&
-        this.props.handleAddCategory(this.state.drinkName, this.state.categoryName)
-    }
-    handleClickFood = () => {
-        this.setState({
-            drinkState: false,
-            shopState: false,
-            specialState: false,
-            foodState: true
-        })
-        this.state.categoryName&&
-        this.props.handleAddCategory(this.state.foodName, this.state.categoryName)
-    }
-    handleClickShop = () => {
-        this.setState({
-            drinkState: false,
-            shopState: true,
-            specialState: false,
-            foodState: false
-        })
-        this.state.categoryName&&
-        this.props.handleAddCategory(this.state.shopName, this.state.categoryName)
-    }
-    handleClickSpecial = () => {
-        this.setState({
-            drinkState: false,
-            shopState: false,
-            specialState: true,
-            foodState: false
-        })
-        this.state.categoryName&&
-        this.props.handleAddCategory(this.state.specialName, this.state.categoryName)
+
+    handleSubmit = (e) => {
+        this.props.handleAddCategory(this.state.category)
     }
     render() {
         return (
-            <div style={{display: 'block'}}>
-                <div style={styles.card}>
-                    <div style={{paddingLeft: 20, paddingTop: 10}}>
-                        <label style={styles.categoryTitle}>Choose an icon</label>
+            <form onSubmit={this.handleSubmit}>
+                <div style={{display: 'block'}}>
+                    <div style={styles.card}>
+                        <div style={{paddingLeft: 20, paddingTop: 10}}>
+                            <label style={styles.categoryTitle}>Choose an icon</label>
+                        </div>
+                        <div style={{display: 'flex'}}>
+                            {
+                                this.state.Items.map((item, index) => (
+                                    <div key={index} onClick={() => this.handleClick(item.id)}
+                                        style={this.state.activeIndex===item.id? styles.iconActive: styles.iconNonActive}>
+                                        <div style={styles.bg}>
+                                            <img 
+                                                src={`${process.env.PUBLIC_URL}/assets/images/${item.id}.png`}
+                                                alt=""
+                                                style={styles.icon}
+                                            />
+                                        </div>
+                                        <label style={styles.iconText}>{item.labelName}</label>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <input 
+                            placeholder="  Category Title" 
+                            style={styles.categoryTitleInput}
+                            onChange={this.handleChange}
+                            value={this.state.categoryName}
+                            name="categoryName"
+                        />
                     </div>
-                    <div style={{display: 'flex'}}>
-                        <div style={this.state.drinkState? styles.iconActive: styles.iconNonActive}>
-                            <div style={styles.bg}>
-                                <img 
-                                    src={`${process.env.PUBLIC_URL}/assets/images/1.png`}
-                                    alt=""
-                                    style={styles.icon}
-                                    onClick={this.handleClickDrink}
-                                />
-                            </div>
-                            <label style={styles.iconText}>Drink</label>
-                        </div>
-                        <div style={this.state.foodState? styles.iconActive: styles.iconNonActive}>
-                            <div style={styles.bg}>
-                                <img 
-                                    src={`${process.env.PUBLIC_URL}/assets/images/2.png`}
-                                    alt=""
-                                    style={styles.icon}
-                                    name="foodName"
-                                    onClick={this.handleClickFood}
-                                />
-                            </div>
-                            <label style={styles.iconText}>Food</label>
-                        </div>
-                        <div style={this.state.shopState? styles.iconActive: styles.iconNonActive}>
-                            <div style={styles.bg}>
-                                <img 
-                                    src={`${process.env.PUBLIC_URL}/assets/images/3.png`}
-                                    alt=""
-                                    style={styles.icon}
-                                    name="shopName"
-                                    onClick={this.handleClickShop}
-                                />
-                            </div>
-                            <label style={styles.iconText}>Shop</label>
-                        </div>
-                        <div style={this.state.specialState? styles.iconActive: styles.iconNonActive}>
-                            <div style={styles.bg}>
-                                <img 
-                                    src={`${process.env.PUBLIC_URL}/assets/images/4.png`}
-                                    alt=""
-                                    style={styles.icon}
-                                    name="specialName"
-                                    onClick={this.handleClickSpecial}
-                                />
-                            </div>
-                            <label style={styles.iconText}>Special</label>
-                        </div>
+                    <div>
+                        <button type="submit" className="btn btn-primary" style={styles.doneBtn}>
+                            <p style={{color: 'white'}}>Done</p>
+                        </button>
                     </div>
-                    <input 
-                        placeholder="  Category Title" 
-                        style={styles.categoryTitleInput}
-                        name="categoryName"
-                        onChange={this.handleChange}
-                        value={this.state.categoryName}
-                    />
+                    <div>
+                        <button onClick={this.props.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                            <p style={{color: 'white'}}>Cancel</p>
+                        </button>   
+                    </div>
                 </div>
-                {/* <div>
-                    <button type="button" className="btn btn-primary" style={styles.doneBtn}>
-                        <p style={{color: 'white'}}>Done</p>
-                    </button>
-                </div>
-                <div>
-                    <button onClick={this.props.handleClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
-                        <p style={{color: 'white'}}>Cancel</p>
-                    </button>   
-                </div> */}
-            </div>
+            </form>
         );
     }
 }

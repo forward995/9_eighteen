@@ -1,6 +1,6 @@
 import { userConstants } from '../constants'
 import { categoryService } from '../services/category.services'
-
+import {history} from '../history'
 export const categoryActions = {
     categoryGet,
     categoryEdit,
@@ -100,6 +100,7 @@ function categoryDelete(id) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home#');
                 },
                 error => {
                     console.log(error)
@@ -125,8 +126,8 @@ function categoryAdd(category) {
         console.log("add")
         categoryService.categoryAdd(category)
             .then(
-                (categories) => {
-                    dispatch(success(categories))
+                (categories, category) => {
+                    dispatch(success(categories, category))
                 },
                 error => {
                     console.log(error)
@@ -139,10 +140,11 @@ function categoryAdd(category) {
             category
         }
     }
-    function success(categories) {
+    function success(categories, category) {
         return {
             type: userConstants.CATEGORY_ADD_SUCCESS,
-            categories
+            categories, 
+            category
         }
     }
 }

@@ -18,8 +18,7 @@ export function category(state=initialState, action) {
             return {}
         case userConstants.CATEGORY_EDIT_SUCCESS:
             return Object.assign({}, state, {
-                category: action.category,
-                categories: action.categories
+                category: action.category
             })
         case userConstants.CATEGORY_UPDATE_REQUEST:
             return {}
@@ -34,9 +33,9 @@ export function category(state=initialState, action) {
         case userConstants.CATEGORY_ADD_REQUEST:
             return {}
         case userConstants.CATEGORY_ADD_SUCCESS:
-            return Object.assign({}, state, {
-                categories: action.categories
-            })
+            return {
+                
+            }
 
         default:
             return state

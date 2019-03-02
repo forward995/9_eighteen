@@ -4,6 +4,7 @@ import Contents from './Contents'
 
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { categoryActions } from '../actions/category.actions';
 // import { categoryActions } from '../actions/category.actions';
 
 const styles = {
@@ -44,12 +45,31 @@ class MainContent extends Component {
             isOpen: false,
             categories: '',
             activeIndex: false,
+            categoryName: '',
+            categoryId: ''
         }
     }
 
+    componentDidMount() {
+        this.setState({
+            categories: this.props.categories
+        })
+    }
+
     handleCategory = (index) => {
-        alert(index)
-        this.setState({ activeIndex: index })
+        alert("hello"+index)
+        this.setState({ activeIndex: index, categoryId: index })
+        this.props.handleCategoryClickedId(index)
+    }
+
+    handleCategoryName = (categoryName) => {
+        this.setState({
+            categoryName: categoryName
+        })
+    }
+
+    handleDeleteCategoryClick = () => {
+        this.props.dispatch(categoryActions.categoryDelete(this.state.categoryId))
     }
 
     render() {
@@ -65,6 +85,7 @@ class MainContent extends Component {
                                         src={`${process.env.PUBLIC_URL}/assets/images/${item.categoryIcon}.png`}
                                         alt=""
                                         style={styles.icon}
+                                        onClick={() => this.handleCategoryName(item.categoryName)}
                                     />
                                 </button>
                             ))
@@ -84,8 +105,11 @@ class MainContent extends Component {
                                 onClick={this.props.handleOnClick}
                                 handleSubCategoryClick={this.props.handleSubCategoryClick}
                                 handleEditCategoryClick={this.props.handleEditCategoryClick}
+                                handleDeleteCategoryClick={this.handleDeleteCategoryClick}
                                 handleEditItemClick={this.props.handleEditItemClick}
-                                categories={this.props.categories}
+                                // categories={this.props.categories}
+                                categoryName={this.state.categoryName}
+                                categoryId={this.state.categoryId}
                             />
                         }
                     </div>

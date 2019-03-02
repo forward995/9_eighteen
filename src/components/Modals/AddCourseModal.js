@@ -94,9 +94,8 @@ class AddCourseModal extends Component {
         });
     } 
     handleSubmit = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         const { course } = this.state
-        console.log(course)
         this.props.dispatch(courseActions.courseAdd(course))
     }
     render() {
