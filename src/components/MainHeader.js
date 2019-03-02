@@ -130,7 +130,7 @@ class MainHeader extends Component {
                 <ul className="nav nav-tabs" style={styles.tab}>
                     {
                         courses && courses.map(item => (
-                            <li key={item._id} className="nav-item">
+                            <li key={item._id} className="nav-item" style={{cursor: 'pointer'}}>
                                 <a 
                                     onClick={() => this.handleCourse(item._id)}
                                     className="nav-link"

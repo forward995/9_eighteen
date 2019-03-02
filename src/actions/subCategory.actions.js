@@ -3,9 +3,9 @@ import { subCategoryService } from '../services/subCategory.services'
 import {history} from '../history'
 export const subCategoryActions = {
     subCategoryGet,
-    // categoryEdit,
-    // categoryUpdate,
-    // categoryDelete,
+    subCategoryEdit,
+    subCategoryUpdate,
+    subCategoryDelete,
     subCategoryAdd
 }
 
@@ -37,87 +37,87 @@ function subCategoryGet(id) {
         }
     }
 }
-// function categoryEdit(id) {
-//     return dispatch => {
-//         dispatch(request(id))
-//         console.log("edit")
-//         categoryService.categoryEdit(id)
-//             .then(
-//                 (category) => {
-//                     dispatch(success(category))
-//                 },
-//                 error => {
-//                     console.log(error)
-//                 }
-//             )
-//     }
-//     function request(id) {
-//         return {
-//             type: userConstants.CATEGORY_EDIT_REQUEST,
-//             id
-//         }
-//     }
-//     function success(category) {
-//         return {
-//             type: userConstants.CATEGORY_EDIT_SUCCESS,
-//             category
-//         }
-//     }
-// }
+function subCategoryEdit(id) {
+    return dispatch => {
+        dispatch(request(id))
+        console.log("edit")
+        subCategoryService.subCategoryEdit(id)
+            .then(
+                (subCategory) => {
+                    dispatch(success(subCategory))
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+    }
+    function request(id) {
+        return {
+            type: userConstants.SUBCATEGORY_EDIT_REQUEST,
+            id
+        }
+    }
+    function success(subCategory) {
+        return {
+            type: userConstants.SUBCATEGORY_EDIT_SUCCESS,
+            subCategory
+        }
+    }
+}
 
-// function categoryUpdate(category) {
-//     return dispatch => {
-//         console.log("update")
-//         dispatch(request(category.id))
-//         categoryService.categoryUpdate(category)
-//             .then(
-//                 () => {
-//                     dispatch(success())
-//                 },
-//                 error => {
-//                     console.log(error)
-//                 }
-//             )
-//     }
-//     function request(id) {
-//         return {
-//             type: userConstants.CATEGORY_UPDATE_REQUEST,
-//             id
-//         }
-//     }
-//     function success() {
-//         return {
-//             type: userConstants.CATEGORY_UPDATE_SUCCESS
-//         }
-//     }
-// }
+function subCategoryUpdate(subCategory) {
+    return dispatch => {
+        console.log("update")
+        dispatch(request(subCategory.subCategoryId))
+        subCategoryService.subCategoryUpdate(subCategory)
+            .then(
+                () => {
+                    dispatch(success())
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+    }
+    function request(id) {
+        return {
+            type: userConstants.SUBCATEGORY_UPDATE_REQUEST,
+            id
+        }
+    }
+    function success() {
+        return {
+            type: userConstants.SUBCATEGORY_UPDATE_SUCCESS
+        }
+    }
+}
 
-// function categoryDelete(id) {
-//     return dispatch => {
-//         dispatch(request(id))
-//         console.log("delete")
-//         categoryService.categoryDelete(id)
-//             .then(
-//                 () => {
-//                     dispatch(success())
-//                 },
-//                 error => {
-//                     console.log(error)
-//                 }
-//             )
-//     }
-//     function request(id) {
-//         return {
-//             type: userConstants.CATEGORY_DELETE_REQUEST,
-//             id
-//         }
-//     }
-//     function success() {
-//         return {
-//             type: userConstants.CATEGORY_DELETE_SUCCESS
-//         }
-//     }
-// }
+function subCategoryDelete(id) {
+    return dispatch => {
+        dispatch(request(id))
+        console.log("delete")
+        subCategoryService.subCategoryDelete(id)
+            .then(
+                () => {
+                    dispatch(success())
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+    }
+    function request(id) {
+        return {
+            type: userConstants.SUBCATEGORY_DELETE_REQUEST,
+            id
+        }
+    }
+    function success() {
+        return {
+            type: userConstants.SUBCATEGORY_DELETE_SUCCESS
+        }
+    }
+}
 
 function subCategoryAdd(subCategory) {
     return dispatch => {

@@ -87,8 +87,8 @@ class MainHeaderModal extends Component {
                                             <p style={styles.txt1}>{item.courseName}</p>
                                         </div>
                                         <div className="col-sm-6" style={{textAlign: 'right'}}>
-                                            <a onClick={(id) => this.handleEdit(item._id)} style={styles.txt2}>Edit</a>
-                                            <a onClick={(id) => this.handleDelete(item._id)} style={styles.txt3}>Delete</a>
+                                            <a href="#" onClick={(id) => this.handleEdit(item._id)} style={styles.txt2}>Edit</a>
+                                            <a href="#" onClick={(id) => this.handleDelete(item._id)} style={styles.txt3}>Delete</a>
                                         </div>
                                     </div>
                                     <hr style={styles.hrLine}></hr>

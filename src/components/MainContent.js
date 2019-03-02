@@ -5,7 +5,8 @@ import Contents from './Contents'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { categoryActions } from '../actions/category.actions';
-// import { categoryActions } from '../actions/category.actions';
+import { subCategoryActions } from '../actions/subCategory.actions';
+import { itemActions } from '../actions/item.actions';
 
 const styles = {
     bg: {
@@ -60,6 +61,8 @@ class MainContent extends Component {
         alert("hello"+index)
         this.setState({ activeIndex: index, categoryId: index })
         this.props.handleCategoryClickedId(index)
+        this.props.dispatch(subCategoryActions.subCategoryGet(index))
+        this.props.dispatch(itemActions.itemGet(index))
     }
 
     handleCategoryName = (categoryName) => {
@@ -74,6 +77,7 @@ class MainContent extends Component {
 
     render() {
         const { categories } = this.props
+        const { categoryId } = this.state
         return (
             <div>
                 <div style={{paddingLeft: '17.5%', boxShadow: "0 3px 18px rgba(203, 203, 203, 0.49)"}}>
@@ -105,11 +109,16 @@ class MainContent extends Component {
                                 onClick={this.props.handleOnClick}
                                 handleSubCategoryClick={this.props.handleSubCategoryClick}
                                 handleEditCategoryClick={this.props.handleEditCategoryClick}
+                                handleEditSubCategoryClick={(id) => this.props.handleEditSubCategoryClick(id)}
                                 handleDeleteCategoryClick={this.handleDeleteCategoryClick}
-                                handleEditItemClick={this.props.handleEditItemClick}
-                                // categories={this.props.categories}
+                                handleEditItemClick={(id) => this.props.handleEditItemClick(id)}
+                                handleDeleteItemClick={(id) => this.props.handleDeleteItemClick(id)}
+                                handleEditItemSubClick={(id) => this.props.handleEditItemSubClick(id)}
+                                handleDeleteItemSubClick={(id) => this.props.handleDeleteItemSubClick(id)}
                                 categoryName={this.state.categoryName}
-                                categoryId={this.state.categoryId}
+                                categoryId={categoryId}
+                                subCategories={this.props.subCategories}
+                                items={this.props.items}
                             />
                         }
                     </div>
@@ -127,9 +136,13 @@ MainContent.propTypes = {
 
 function mapStateToProps(state) {
     const {categories} =  state.category
+    const {subCategories} = state.subCategory
+    const {items} = state.item
     console.log(categories)
     return {
-        categories
+        categories,
+        subCategories,
+        items
     }
 }
 

@@ -44,7 +44,7 @@ function categoryUpdate(category) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(category)
     }
-    return fetch(`${baseURL}/api/updateCategory/${category.id}`, requestOptions).then(handleResponse)
+    return fetch(`${baseURL}/api/updateCategory/${category.categoryId}`, requestOptions).then(handleResponse)
 }
 
 function categoryDelete(id) {

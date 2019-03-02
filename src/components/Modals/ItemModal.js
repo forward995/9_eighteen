@@ -1,4 +1,9 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
+
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { itemActions } from '../../actions/item.actions';
 
 const styles = {
     card: {
@@ -83,33 +88,102 @@ const styles = {
     }
 }
 
-class ContentModal extends Component {
+class ItemModal extends Component {
+    constructor(props) {
+        super(props)
+        this.state={
+            item: {
+                subCategoryId:'',
+                itemName: '',
+                itemPrice: '',
+                itemAmount: '',
+                categoryId: ''
+            },
+            value: ''
+        }
+    }
+
+    handleChange = (e) => {
+        const {item} = this.state
+        const {name, value}=e.target
+        this.setState({
+            item: {
+                ...item,
+                [name]: value
+            }
+        })
+    }
+
+    handleOnChange = (e) => {
+        const {item} =  this.state
+        const subCategoryId = e.target.value
+        alert(subCategoryId)
+        this.setState({
+            item: {
+                ...item,
+                subCategoryId: subCategoryId,
+                categoryId: this.props.categoryId
+            },
+            value: subCategoryId
+        }) 
+    }
+
+    handleSubmit = async (e) => {
+        e.preventDefault()
+        const {item}=this.state
+        const categoryId=this.props.categoryId
+        alert(categoryId)
+        await this.setState({
+            item: {
+                ...item,
+                categoryId: categoryId
+            }
+        })
+        this.props.dispatch(itemActions.itemAdd(this.state.item))
+    }
+
     render() {
+        const {subCategories}=this.props
+        const {item} = this.state
         return (
+            <form onSubmit={this.handleSubmit}>
             <div style={{display:'block'}}>
                 <div style={{display: 'flex'}}>
                     <div style={styles.card}>
                         <input 
                             placeholder="  Mountain Dew" 
                             style={styles.itemNameInput}
+                            name="itemName"
+                            value={item.itemName}
+                            onChange={this.handleChange}
                         />
                         <input 
                             placeholder="  221ml" 
                             style={styles.configurationInput}
+                            name="itemAmount"
+                            value={item.itemAmount}
+                            onChange={this.handleChange}
                         />
                         <div style={{display: 'flex', alignItems: 'baseline'}}>
                             <p style={{marginLeft: 20}}>$</p>
                             <input 
                                 placeholder="  2.50" 
                                 style={styles.moneyInput}
+                                name="itemPrice"
+                                value={item.itemPrice}
+                                onChange={this.handleChange}
                             />
                         </div>
                         <div style={styles.dropdownMenu}>
-                            <select className="custom-select" id="inputGroupSelect03">
+                            <select className="custom-select" value={this.state.value} onChange={this.handleOnChange} id="inputGroupSelect03" >
                                 <option defaultValue="selected">None</option>
-                                <option value={1}>One</option>
-                                <option value={2}>Two</option>
-                                <option value={3}>Three</option>
+                                {
+                                    subCategories&&subCategories.map((item, index) => (
+                                        <option value={item._id} key={index}>
+                                            {item.subCategoryName}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -132,9 +206,13 @@ class ContentModal extends Component {
                         <div style={styles.dropdownMenu}>
                             <select className="custom-select" id="inputGroupSelect03">
                                 <option defaultValue="selected">None</option>
-                                <option value={1}>One</option>
-                                <option value={2}>Two</option>
-                                <option value={3}>Three</option>
+                                {
+                                    subCategories&&subCategories.map((item, index) => (
+                                        <option value={index} key={index}>
+                                            {item.subCategoryName}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -153,7 +231,7 @@ class ContentModal extends Component {
                 </div>
                 <div style={{display: 'block'}}>
                     <div style={{textAlign: 'center'}}>
-                        <button type="button" className="btn btn-primary" style={styles.doneMulBtn}>
+                        <button type="submit" className="btn btn-primary" style={styles.doneMulBtn}>
                             <p style={{color: 'white'}}>Done</p>
                         </button>
                     </div>
@@ -164,8 +242,21 @@ class ContentModal extends Component {
                     </div>
                 </div>
             </div>
+            </form>
         );
     }
 }
+ItemModal.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+}
 
-export default ContentModal;
+const mapStateToProps = (state) => {
+    const {subCategories} = state.subCategory
+    const {item} =  state.item
+    console.log(item)
+    return {
+        item,subCategories
+    }
+}
+
+export default connect(mapStateToProps)(ItemModal)

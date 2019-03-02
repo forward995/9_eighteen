@@ -105,9 +105,8 @@ class AddSubCategoryModal extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        alert(this.state.subCategory)
-        console.log(this.state.subCategory)
         this.props.dispatch(subCategoryActions.subCategoryAdd(this.state.subCategory))
+        this.props.dispatch(subCategoryActions.subCategoryGet(this.props.categoryId))
     }
     render() {
         const {subCategory} = this.state

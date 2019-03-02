@@ -4,16 +4,19 @@ import React, { Component } from 'react'
 import MainHeader from './MainHeader'
 import MainContent from './MainContent'
 import MainSidebar from './MainSidebar'
-import ContentModal from './Modals/ContentModal'
+import ItemModal from './Modals/ItemModal'
 
 import AddCategoryModal from './Modals/AddCategoryModal'
 import AddSubCategoryModal from './Modals/AddSubCategoryModal'
 import EditCategoryModal from './Modals/EditCategoryModal';
 import EditItemModal from './Modals/EditItemModal';
+import EditSubCategoryModal from './Modals/EditSubCategoryModal'
 
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { categoryActions } from '../actions/category.actions';
+import { subCategoryActions } from '../actions/subCategory.actions';
+import { itemActions } from '../actions/item.actions';
 
 const styles = {
     modal: {
@@ -51,6 +54,7 @@ class Main extends Component {
             showModal: false,
             showMultiModal: false,
             showSubCategoryModal: false,
+            showEditSubCategoryModal: false,
             showEditCategoryModal: false,
             showEditItemModal: false,
             category: {
@@ -58,7 +62,9 @@ class Main extends Component {
                 categoryName: '',
                 categoryIcon: '' ,
                 categoryId: '' 
-            }
+            },
+            subCategoryId: '',
+            itemId: ''
         }
     }
 
@@ -80,15 +86,43 @@ class Main extends Component {
         })
     }
     handleEditCategoryClick = () => {
-        this.props.dispatch(categoryActions.categoryEdit(this.state.category.courseId))
+        alert(this.state.category.categoryId)
+        this.props.dispatch(categoryActions.categoryEdit(this.state.category.categoryId))
         this.setState({
             showEditCategoryModal: !this.state.showEditCategoryModal
         })
     }
-    handleEditItemClick = () => {
-        this.setState({
-            showEditItemModal: !this.state.showEditItemModal
+
+    handleEditSubCategoryClick = async (id) => {
+        this.props.dispatch(subCategoryActions.subCategoryEdit(id))
+        await this.setState({
+            showEditSubCategoryModal: !this.state.showEditSubCategoryModal,
+            subCategoryId: id
         })
+    }
+
+    handleEditItemClick = (id) => {
+        this.setState({
+            showEditItemModal: !this.state.showEditItemModal,
+            itemId: id
+        })
+        this.props.dispatch(itemActions.itemEdit(id))
+    }
+
+    handleEditItemSubClick = (id) => {
+        // alert(id)
+        this.setState({
+            showEditItemModal: !this.state.showEditItemModal,
+            itemId: id
+        })
+        this.props.dispatch(itemActions.itemEdit(id))
+    }
+    handleDeleteItemSubClick = (id) => {
+        this.props.dispatch(itemActions.itemDelete(id))
+    }
+
+    handleDeleteItemClick = (id) => {
+        this.props.dispatch(itemActions.itemDelete(id))
     }
 
     // Modal close 
@@ -108,6 +142,12 @@ class Main extends Component {
             showSubCategoryModal: !this.state.showSubCategoryModal
         })
     }
+    handleEditSubCategoryClose = () => {
+        this.setState({
+            showEditSubCategoryModal: !this.state.showEditSubCategoryModal
+        })
+    }
+
     handleEditCategoryClose = () => {
         this.setState({
             showEditCategoryModal: !this.state.showEditCategoryModal
@@ -149,6 +189,7 @@ class Main extends Component {
     }
 
     render() {
+        const {categoryId}=this.state.category
         return (
             <div>
                 <MainHeader getCourseId={(id)=> this.getCourseId(id)}/>
@@ -159,9 +200,13 @@ class Main extends Component {
                             handleOnClick={this.handleOnClick}
                             handleSubCategoryClick={this.handleSubCategoryClick}
                             handleEditCategoryClick={this.handleEditCategoryClick}
-                            handleEditItemClick={this.handleEditItemClick}
+                            handleEditItemClick={(id) => this.handleEditItemClick(id)}
+                            handleDeleteItemClick={(id) => this.handleDeleteItemClick(id)}
+                            handleEditItemSubClick={(id) => this.handleEditItemSubClick(id)}
+                            handleDeleteItemSubClick={(id) => this.handleDeleteItemSubClick(id)}
                             categories={this.props.categories}
                             handleCategoryClickedId={(id) => this.handleCategoryClickedId(id)}
+                            handleEditSubCategoryClick={this.handleEditSubCategoryClick}
                         />
                     </div>
                     <div className="col-sm-4">
@@ -172,8 +217,10 @@ class Main extends Component {
                     this.state.showMultiModal&&
                     <div style={styles.modal}>
                         <div style={{display: 'block'}}>
-                            <ContentModal 
+                            <ItemModal 
                                 MultihandleClose={this.MultihandleClose}
+                                subCategories={this.props.subCategories}
+                                categoryId={categoryId}
                             />
                         </div>
                     </div>
@@ -206,7 +253,7 @@ class Main extends Component {
                         <div style={{display: 'block'}}>
                             <AddSubCategoryModal 
                                 handleSubCategoryClose={this.handleSubCategoryClose}
-                                categoryId={this.state.category.categoryId}
+                                categoryId={categoryId}
                             />
                         </div>
                     </div>
@@ -217,6 +264,8 @@ class Main extends Component {
                         <div style={{display: 'block'}}>
                             <EditCategoryModal 
                                 handleEditCategoryClose={this.handleEditCategoryClose}
+                                category={this.props.category}
+                                categoryId={this.state.category.categoryId}
                             />
                         </div>
                     </div>
@@ -225,7 +274,23 @@ class Main extends Component {
                     this.state.showEditItemModal&&
                     <div style={styles.modal}>
                         <div style={{display: 'block'}}>
-                            <EditItemModal handleEditItemClose={this.handleEditItemClose}/>
+                            <EditItemModal 
+                                handleEditItemClose={this.handleEditItemClose}
+                                item={this.props.item}
+                                itemId={this.state.itemId}
+                            />
+                        </div>
+                    </div>
+                }
+                {
+                    this.state.showEditSubCategoryModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <EditSubCategoryModal 
+                                subCategory={this.props.subCategory}
+                                handleEditSubCategoryClose={this.handleEditSubCategoryClose}
+                                subCategoryId={this.state.subCategoryId}
+                            />
                         </div>
                     </div>
                 }
@@ -241,10 +306,12 @@ Main.propTypes = {
 }
 
 function mapStateToProps(state) {
-    const {categories, category} =  state.category
+    const {categories, category} = state.category
+    const {subCategories, subCategory}=state.subCategory
+    const { item } = state.item
     console.log(categories, category)
     return {
-        categories, category
+        categories, category, subCategories, subCategory, item
     }
 }
 

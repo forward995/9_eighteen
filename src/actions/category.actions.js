@@ -68,7 +68,7 @@ function categoryEdit(id) {
 function categoryUpdate(category) {
     return dispatch => {
         console.log("update")
-        dispatch(request(category.id))
+        dispatch(request(category.categoryId))
         categoryService.categoryUpdate(category)
             .then(
                 () => {

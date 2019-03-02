@@ -4,6 +4,10 @@ import React, { Component } from 'react';
 import Subcategory from './SubCategory'
 import Item from './Item';
 
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+// import { subCategoryActions } from '../actions/subCategory.actions';
+
 const styles = {
     txtLine: {
         display: 'flex', 
@@ -68,9 +72,13 @@ const styles = {
 class Contents extends Component {
     constructor(props) {
         super(props)
-        console.log("sdfasdfsd"+this.props.categoryId)
+        this.state = {
+            categoryId: ''
+        }
     }
+
     render() {
+    
         return (
             <div className="row">
                 <div className="col-sm-12" style={styles.txtLine}>
@@ -88,35 +96,20 @@ class Contents extends Component {
                 <div className="col-sm-12" style={{display:'flex'}}>
                     <div className="col-sm-3"></div>
                     <div className="col-sm-6" style={{display:'block'}}>
-                        {/* <div className="col-sm-12" style={{display:'flex', paddingBottom: 20}}>
-                            <div className="col-sm-6" style={{textAlign: "left", display: 'flex', alignItems: 'center'}}>
-                                <div>
-                                    <a style={{fontFamily: "Charter - Bold",fontSize: 14, fontWeight: 700}}>Coca-Cola</a><br />
-                                    <a style={{fontFamily: "Charter - Roman",fontSize: 14, fontWeight: 400}}>$2.25</a>  <a style={{fontStyle: "italic"}}>500ml</a>
-                                </div>
-                            </div>
-                            <div className="col-sm-6" style={{textAlign: "right", display: 'grid', alignItems: 'center'}}>
-                                <div>
-                                    <a href="#" onClick={this.props.handleEditItemClick} style={{fontFamily: "Charter - Roman",fontSize: 14, fontWeight: 400, textDecoration: 'underline', color: "#000000"}}>Edit</a>
-                                    <img 
-                                        src={`${process.env.PUBLIC_URL}/assets/images/upTriangle.png`}
-                                        alt=""
-                                        style={{paddingLeft:'5%'}}
-                                    /><br />
-                                    <a style={{fontFamily: "Charter - Roman", color: '#f32362',fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Delete Item</a>
-                                    <img 
-                                        src={`${process.env.PUBLIC_URL}/assets/images/downTriangle.png`}
-                                        alt=""
-                                        style={{paddingLeft:'5%'}}
-                                    />
-                                </div>
-                            </div>
-                        </div> */}
-                        <Subcategory 
-                            categoryId={this.props.categoryId} 
-                            handleSubCategoryClick={this.props.handleSubCategoryClick}
+                        <Item 
+                            items={this.props.items}
+                            handleEditItemClick={(id) => this.props.handleEditItemClick(id)}
+                            handleDeleteItemClick={(id) => this.props.handleDeleteItemClick(id)}
+                            
                         />
-                        <Item handleEditItemClick={this.props.handleEditItemClick}/>
+                        <Subcategory 
+                            items={this.props.items}
+                            subCategories={this.props.subCategories} 
+                            handleSubCategoryClick={this.props.handleSubCategoryClick}
+                            handleEditSubCategoryClick={(id) => this.props.handleEditSubCategoryClick(id)}
+                            handleEditItemSubClick={(id) => this.props.handleEditItemSubClick(id)}
+                            handleDeleteItemSubClick={(id) => this.props.handleDeleteItemSubClick(id)}
+                        />
                     </div>
                     <div className="col-sm-3"></div>
                 </div>
@@ -157,4 +150,18 @@ class Contents extends Component {
     }
 }
 
-export default Contents;
+Contents.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    // categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+}
+
+function mapStateToProps(state) {
+    const {subCategories} =  state.subCategory
+    const {items} = state.item
+    console.log(subCategories, items)
+    return {
+        subCategories, items
+    }
+}
+
+export default connect(mapStateToProps)(Contents)

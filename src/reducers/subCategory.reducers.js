@@ -15,21 +15,21 @@ export function subCategory(state={}, action) {
         case userConstants.SUBCATEGORY_GET_FAILURE:
             return {}
 
-        // case userConstants.CATEGORY_EDIT_REQUEST:
-        //     return {}
-        // case userConstants.CATEGORY_EDIT_SUCCESS:
-        //     return Object.assign({}, state, {
-        //         category: action.category
-        //     })
-        // case userConstants.CATEGORY_UPDATE_REQUEST:
-        //     return {}
-        // case userConstants.CATEGORY_UPDATE_SUCCESS:
-        //     return {}
+        case userConstants.SUBCATEGORY_EDIT_REQUEST:
+            return {}
+        case userConstants.SUBCATEGORY_EDIT_SUCCESS:
+            return Object.assign({}, state, {
+                subCategory: action.subCategory
+            })
+        case userConstants.SUBCATEGORY_UPDATE_REQUEST:
+            return {}
+        case userConstants.SUBCATEGORY_UPDATE_SUCCESS:
+            return {}
 
-        // case userConstants.CATEGORY_DELETE_REQUEST:
-        //     return {}
-        // case userConstants.CATEGORY_DELETE_SUCCESS:
-        //     return {}
+        case userConstants.SUBCATEGORY_DELETE_REQUEST:
+            return {}
+        case userConstants.SUBCATEGORY_DELETE_SUCCESS:
+            return {}
 
         case userConstants.SUBCATEGORY_ADD_REQUEST:
             return {}

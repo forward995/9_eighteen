@@ -1,4 +1,8 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { itemActions } from '../../actions/item.actions';
 
 const styles = {
     card: {
@@ -75,51 +79,102 @@ const styles = {
 }
 
 class EditItemModal extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            item: {
+                itemName: '',
+                itemPrice: '',
+                itemAmount: '',
+                itemId: ''
+            }
+        }
+    }
+
+    handleChange = async (e) => {
+        const { name, value } = e.target
+        const { itemId } = this.props
+        const {item} = this.state
+        await this.setState({
+            item: {
+                ...item,
+                [name]: value,
+                itemId: itemId
+            }
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.props.dispatch(itemActions.itemUpdate(this.state.item))
+    }
     render() {
+        const {item} = this.props
         return (
-            <div style={{display: 'block'}}>
-                <div style={{display: 'flex'}}>
-                    <div style={styles.card}>
-                        <input 
-                            placeholder="  Item Name" 
-                            style={styles.itemNameInput}
-                        />
-                        <input 
-                            placeholder="  Configuration" 
-                            style={styles.configurationInput}
-                        />
-                        <div style={{display: 'flex', alignItems: 'baseline'}}>
-                            <p style={{marginLeft: 20}}>$</p>
-                            <input 
-                                placeholder="" 
-                                style={styles.moneyInput}
-                            />
+            <form onSubmit={this.handleSubmit}>
+                {
+                    item&&
+                    <div style={{display: 'block'}}>
+                        <div style={{display: 'flex'}}>
+                            <div style={styles.card}>
+                                <input 
+                                    placeholder={`${this.props.item.itemName}`} 
+                                    style={styles.itemNameInput}
+                                    name="itemName"
+                                    onChange={this.handleChange}
+                                    value={this.state.item.itemName}
+                                />
+                                <input 
+                                    placeholder={`${this.props.item.itemAmount}`} 
+                                    style={styles.configurationInput}
+                                    name="itemAmount"
+                                    onChange={this.handleChange}
+                                    value={this.state.item.itemAmount}
+                                />
+                                <div style={{display: 'flex', alignItems: 'baseline'}}>
+                                    <p style={{marginLeft: 20}}>$</p>
+                                    <input 
+                                        placeholder={`${this.props.item.itemPrice}`} 
+                                        style={styles.moneyInput}
+                                        onChange={this.handleChange}
+                                        name="itemPrice"
+                                        value={this.state.item.itemPrice}
+                                    />
+                                </div>
+                                <div style={styles.dropdownMenu}>
+                                    <select className="custom-select" id="inputGroupSelect03">
+                                        <option defaultValue="selected">None</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div style={styles.dropdownMenu}>
-                            <select className="custom-select" id="inputGroupSelect03">
-                                <option defaultValue="selected">None</option>
-                                <option value={1}>One</option>
-                                <option value={2}>Two</option>
-                                <option value={3}>Three</option>
-                            </select>
+                        <div style={{display: 'block'}}>
+                            <div>
+                                <button type="submit" className="btn btn-primary" style={styles.doneBtn}>
+                                    <p style={{color: 'white'}}>Update</p>
+                                </button>
+                            </div>
+                            <div>
+                                <button onClick={this.props.handleEditItemClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
+                                    <p style={{color: 'white'}}>Cancel</p>
+                                </button>   
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div style={{display: 'block'}}>
-                    <div>
-                        <button type="button" className="btn btn-primary" style={styles.doneBtn}>
-                            <p style={{color: 'white'}}>Update</p>
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={this.props.handleEditItemClose} type="button" className="btn btn-default" style={styles.cancelBtn}>
-                            <p style={{color: 'white'}}>Cancel</p>
-                        </button>   
-                    </div>
-                </div>
-            </div>
+                }
+            </form>
         );
     }
 }
 
-export default EditItemModal;
+EditItemModal.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+}
+
+function mapStateToProps(state) {
+    const {item} = state.item
+    return {
+        item
+    }
+}
+
+export default connect(mapStateToProps)(EditItemModal)
