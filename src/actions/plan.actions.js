@@ -9,14 +9,41 @@ export const planActions = {
     planAdd
 }
 
-function getPlans(date) {
+// function getPlans(date) {
+//     return dispatch => {
+//         dispatch(request(date))
+//         console.log('get')
+//         planService.getPlans(date)
+//             .then(
+//                 (plans) => {
+//                     console.log(plans)
+//                 dispatch(success(plans)) 
+//             },
+//                 error => {
+//                     console.log(error)
+//                 }
+//             )
+//     }
+//     function request(date) {
+//         return {
+//             type: userConstants.PLAN_GET_REQUEST,
+//             date
+//         }
+//     }
+//     function success(plans) {
+//         return {
+//             type: userConstants.PLAN_GET_SUCCESS,
+//             plans
+//         }
+//     }
+// }
+
+function getPlans() {
     return dispatch => {
-        dispatch(request(date))
-        console.log('get')
-        planService.getPlans(date)
+        dispatch(request())
+        planService.getPlans()
             .then(
                 (plans) => {
-                    console.log(plans)
                 dispatch(success(plans)) 
             },
                 error => {
@@ -24,10 +51,10 @@ function getPlans(date) {
                 }
             )
     }
-    function request(date) {
+    function request() {
         return {
             type: userConstants.PLAN_GET_REQUEST,
-            date
+            
         }
     }
     function success(plans) {

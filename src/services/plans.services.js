@@ -19,14 +19,23 @@ function planAdd(plan) {
     return fetch(`${baseURL}/api/plansAdd`, requestOptions).then(handleResponse)
 }
 
-function getPlans(date) {
+// function getPlans(date) {
+//     const requestOptions = {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     }
+//     return fetch(`${baseURL}/api/plans/${date}`, requestOptions).then(handleResponse)
+// }
+function getPlans() {
     const requestOptions = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    return fetch(`${baseURL}/api/plans/${date}`, requestOptions).then(handleResponse)
+    return fetch(`${baseURL}/api/plans`, requestOptions).then(handleResponse)
 }
 
 function planEdit(id) {

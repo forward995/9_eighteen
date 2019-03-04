@@ -74,7 +74,8 @@ class MainSidebar extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(planActions.getPlans(formatDate(this.state.date)))
+        // this.props.dispatch(planActions.getPlans(formatDate(this.state.date)))
+        this.props.dispatch(planActions.getPlans())
     }
 
     handleClick = () => {
