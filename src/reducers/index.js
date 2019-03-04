@@ -6,6 +6,7 @@ import { course } from './course.reducers'
 import { category } from './category.reducers'
 import { subCategory } from './subCategory.reducers'
 import { item } from './item.reducers'
+import { plan } from './plan.reducers'
 
 const rootReducer = combineReducers({
     authentication,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     course,
     category,
     subCategory,
-    item
+    item,
+    plan
 })
 
 export default rootReducer;

@@ -11,12 +11,15 @@ import AddSubCategoryModal from './Modals/AddSubCategoryModal'
 import EditCategoryModal from './Modals/EditCategoryModal';
 import EditItemModal from './Modals/EditItemModal';
 import EditSubCategoryModal from './Modals/EditSubCategoryModal'
+import PlanModal from './Modals/PlanModal'
 
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { categoryActions } from '../actions/category.actions';
 import { subCategoryActions } from '../actions/subCategory.actions';
 import { itemActions } from '../actions/item.actions';
+import EditPlanModal from './Modals/EditPlanModal';
+import { planActions } from '../actions/plan.actions';
 
 const styles = {
     modal: {
@@ -57,6 +60,8 @@ class Main extends Component {
             showEditSubCategoryModal: false,
             showEditCategoryModal: false,
             showEditItemModal: false,
+            showPlanModal: false,
+            showEditPlanModal: false,
             category: {
                 courseId: '',
                 categoryName: '',
@@ -64,7 +69,9 @@ class Main extends Component {
                 categoryId: '' 
             },
             subCategoryId: '',
-            itemId: ''
+            itemId: '',
+            planSelectedDate: '',
+            plan: ''
         }
     }
 
@@ -125,6 +132,15 @@ class Main extends Component {
         this.props.dispatch(itemActions.itemDelete(id))
     }
 
+    handleEditPlanModal = async (item) => {
+        // this.props.dispatch(planActions.planEdit(item._id))
+        await this.setState({
+            showEditPlanModal: !this.state.showEditPlanModal,
+            plan: item
+        })
+        alert(this.state.plan.itemName)
+    }
+
     // Modal close 
 
     handleClose = () => {
@@ -159,6 +175,12 @@ class Main extends Component {
         })
     }
 
+    handleEditPlanModalClose = () => {
+        this.setState({
+            showEditPlanModal: !this.state.showEditPlanModal
+        })
+    }
+
     async getCourseId (id) {
         const {category} = this.state
         await this.setState({
@@ -188,6 +210,25 @@ class Main extends Component {
         this.props.dispatch(categoryActions.categoryGet(category.courseId))
     }
 
+    handlePlanClick = () => {
+        this.setState({
+            showPlanModal: !this.state.showPlanModal
+        })
+    }
+
+    handlePlanClickCancel = () => {
+        this.setState({
+            showPlanModal: !this.state.showPlanModal
+        })
+    }
+
+    getPlanDate = async (date) => {
+        await this.setState({
+            planSelectedDate: date
+        })
+        alert(this.state.planSelectedDate)
+    }
+
     render() {
         const {categoryId}=this.state.category
         return (
@@ -210,7 +251,11 @@ class Main extends Component {
                         />
                     </div>
                     <div className="col-sm-4">
-                        <MainSidebar onClick={this.handleOnClick}/>
+                        <MainSidebar 
+                            onClick={this.handlePlanClick}
+                            getPlanDate = {this.getPlanDate}
+                            handleEditPlanModal={(id) => this.handleEditPlanModal(id)}
+                        />
                     </div>
                 </div>
                 {
@@ -290,6 +335,28 @@ class Main extends Component {
                                 subCategory={this.props.subCategory}
                                 handleEditSubCategoryClose={this.handleEditSubCategoryClose}
                                 subCategoryId={this.state.subCategoryId}
+                            />
+                        </div>
+                    </div>
+                }
+                {
+                    this.state.showPlanModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <PlanModal 
+                                onClick={this.handlePlanClickCancel}
+                                planSelectedDate={this.state.planSelectedDate}
+                            />
+                        </div>
+                    </div>
+                }
+                {
+                    this.state.showEditPlanModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <EditPlanModal 
+                                plan={this.state.plan}
+                                handleEditPlanModalClose={this.handleEditPlanModalClose}
                             />
                         </div>
                     </div>

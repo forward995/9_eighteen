@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { planActions } from '../actions/plan.actions';
 
 const styles = {
     txt: {
@@ -24,7 +27,8 @@ const styles = {
         borderRadius: "10px",
         backgroundColor: "#ffffff",
         padding: 0,
-        display: 'flex'
+        display: 'flex',
+        marginBottom: 10
     },
     card1: {
         width: "350px",
@@ -68,21 +72,23 @@ class MainSidebar extends Component {
             selectedDate: ''
         }
     }
+
+    componentDidMount() {
+        this.props.dispatch(planActions.getPlans(formatDate(this.state.date)))
+    }
+
     handleClick = () => {
         alert("hello")
         console.log(this.state.date)
     }
 
-    onChange = date => {
-        this.setState({ date })
-        console.log(date)
+    onChange = async date => {
+        await this.setState({ date })
+        this.props.getPlanDate(formatDate(this.state.date))
     }
 
-    onSelect = (e) => {
-        this.setState({
-            selectedDate: e
-        })
-        console.log(this.state.selectedDate)
+    handleDelete(id) {
+        this.props.dispatch(planActions.deletePlan(id))
     }
 
     render() {
@@ -104,7 +110,30 @@ class MainSidebar extends Component {
                     <p style={styles.txt1}>Today - {monthNames[this.state.date.getMonth()]} {this.state.date.getDate()}, {this.state.date.getFullYear()}</p>
                 </div>
                 <div className="col-sm-12" style={{padding: 0}}>
-                    <div className="col-sm-8" style={styles.card}>
+                {
+                    this.props.plans&&this.props.plans.map((item, index) => (
+                        <React.Fragment>
+                            {
+                                item.planSelectedDate===formatDate(this.state.date)&&
+                                <div key={index} className="col-sm-8" style={styles.card}>
+                                    <div className="col-sm-6" style={{textAlign: "left", display: 'flex', alignItems: 'center'}}>
+                                        <div>
+                                        <a style={{fontFamily: "Charter - Bold",fontSize: 14, fontWeight: 700}}>{item.itemName}</a><br />
+                                        <a style={{fontFamily: "Charter - Roman",fontSize: 14, fontWeight: 400}}>${item.itemPrice}</a>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6" style={{textAlign: "right", display: 'grid', alignItems: 'center'}}>
+                                        <div>
+                                            <a href="#" onClick={(id) => this.props.handleEditPlanModal(item)} style={{fontFamily: "Charter - Roman",fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Edit</a><br />
+                                            <a href="#" onClick={(id) => this.handleDelete(item._id)}style={{fontFamily: "Charter - Roman", color: '#f32362',fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Delete Item</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </React.Fragment>
+                    ))
+                }
+                    {/* <div className="col-sm-8" style={styles.card}>
                         <div className="col-sm-6" style={{textAlign: "left", display: 'flex', alignItems: 'center'}}>
                             <div>
                             <a style={{fontFamily: "Charter - Bold",fontSize: 14, fontWeight: 700}}>Clam Chowder</a><br />
@@ -117,7 +146,7 @@ class MainSidebar extends Component {
                                 <a style={{fontFamily: "Charter - Roman", color: '#f32362',fontSize: 14, fontWeight: 400, textDecoration: 'underline'}}>Delete Item</a>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-sm-6">
                     </div>
                 </div>
@@ -148,4 +177,30 @@ class MainSidebar extends Component {
     }
 }
 
-export default MainSidebar;
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+MainSidebar.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state) => {
+    const {plan, plans} = state.plan
+    console.log(plan)
+    return {
+        plan, plans
+    }
+}
+
+export default connect(mapStateToProps)(MainSidebar)
+
+// export default MainSidebar;
