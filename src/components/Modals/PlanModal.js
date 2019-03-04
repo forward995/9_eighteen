@@ -145,8 +145,12 @@ class PlanModal extends Component {
                 planSelectedDate: planSelectedDate
             }
         })
-        this.props.dispatch(planActions.planAdd(this.state.plan))
-        
+        if(this.state.plan.planSelectedDate === '')
+        {
+            alert("please select the date")
+        } else {
+            this.props.dispatch(planActions.planAdd(this.state.plan))
+        }
     }
 
     render() {
