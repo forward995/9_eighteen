@@ -62,8 +62,10 @@ const styles = {
 class MainSidebar extends Component {
     constructor(props){
         super(props)
+        
         this.state = {
-            date: new Date()
+            date: new Date(),
+            selectedDate: ''
         }
     }
     handleClick = () => {
@@ -76,7 +78,17 @@ class MainSidebar extends Component {
         console.log(date)
     }
 
+    onSelect = (e) => {
+        this.setState({
+            selectedDate: e
+        })
+        console.log(this.state.selectedDate)
+    }
+
     render() {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+            ];
         return (
             <div className="row">
                 <div className="col-sm-12" style={{padding: 0}}>
@@ -89,7 +101,7 @@ class MainSidebar extends Component {
                     />
                 </div>
                 <div className="col-sm-12" style={{padding: 0}}>
-                    <p style={styles.txt1}>Today - February 15, 2019</p>
+                    <p style={styles.txt1}>Today - {monthNames[this.state.date.getMonth()]} {this.state.date.getDate()}, {this.state.date.getFullYear()}</p>
                 </div>
                 <div className="col-sm-12" style={{padding: 0}}>
                     <div className="col-sm-8" style={styles.card}>

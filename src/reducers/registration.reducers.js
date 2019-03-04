@@ -10,6 +10,15 @@ export function registration(state={}, action) {
             return {}
         case userConstants.SIGNUP_FAILURE:
             return {}
+        case userConstants.USER_UPDATE_REQUEST:
+            return {
+                
+            }
+        case userConstants.USER_UPDATE_SUCCESS:
+            return Object.assign({}, state, {
+                user: action.user
+            })
+            
         default:
             return state
     }

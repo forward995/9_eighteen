@@ -102,7 +102,9 @@ class Header extends Component {
                 {
                     this.state.showAccountInfo&&
                     <div style={styles.modal}>
-                        <AccountInfoModal handleAccountInfoClose={this.handleAccountInfoClose} />
+                        <AccountInfoModal 
+                            handleAccountInfoClose={this.handleAccountInfoClose} 
+                        />
                     </div>
                 }
             </div>

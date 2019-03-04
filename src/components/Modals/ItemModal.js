@@ -187,7 +187,7 @@ class ItemModal extends Component {
                             </select>
                         </div>
                     </div>
-                    <div style={styles.card1}>
+                    {/* <div style={styles.card1}>
                         <input 
                             placeholder="  Item Name" 
                             style={styles.itemNameInput}
@@ -215,7 +215,7 @@ class ItemModal extends Component {
                                 }
                             </select>
                         </div>
-                    </div>
+                    </div> */}
                     <div style={styles.card2}>
                         <div style={{display: 'block'}}>
                             <img 

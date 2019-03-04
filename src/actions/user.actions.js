@@ -5,7 +5,8 @@ import { history } from '../history'
 export const userActions = {
     signin,
     signup,
-    signout
+    signout,
+    updateUser
 }
 
 function signin(email, password) {
@@ -71,4 +72,33 @@ function signout() {
     return {
         type: userConstants.SIGNOUT
     };
+}
+
+function updateUser(user) {
+    return dispatch => {
+        console.log("update")
+        dispatch(request(user._id))
+        userService.updateUser(user)
+            .then(
+                (user) => {
+                    dispatch(success(user))
+                    history.push('/')
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+    }
+    function request(id) {
+        return {
+            type: userConstants.ITEM_UPDATE_REQUEST,
+            id
+        }
+    }
+    function success(user) {
+        return {
+            type: userConstants.ITEM_UPDATE_SUCCESS,
+            user
+        }
+    }
 }

@@ -1,7 +1,8 @@
 export const userService = {
     signin,
     signup,
-    signout
+    signout,
+    updateUser
 }
 
 const baseURL = 'http://localhost:8000'
@@ -29,6 +30,15 @@ function signup(user) {
         body: JSON.stringify(user)
     }
     return fetch(`${baseURL}/api/signup`, requestOptions).then(handleResponse)
+}
+
+function updateUser(user) {
+    const requestOptions= {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+    }
+    return fetch(`${baseURL}/api/updateUser/${user._id}`, requestOptions).then(handleResponse)
 }
 
 function signout() {

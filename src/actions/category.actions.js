@@ -100,7 +100,7 @@ function categoryDelete(id) {
             .then(
                 () => {
                     dispatch(success())
-                    history.push('/home#');
+                    history.push('/home');
                 },
                 error => {
                     console.log(error)

@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import ReactPhoneInput from 'react-phone-input-2'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { userActions } from '../../actions/user.actions';
 
 const styles = {
         bg: {
@@ -94,25 +97,15 @@ const styles = {
         }
     }
 
+// let user = JSON.parse(localStorage.getItem('user')) || [];
 
 class AccountInfoModal extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            user: {
-                contactName: '',
-                phoneNumber: '',
-                email: '',
-                password: '',
-                confirm_password: '',
-                golfCourseName: '',
-                address: '',
-                cityAddr: '',
-                stateAddr: '',
-                zip: '',
-                golfCourseUrl: '',
-                checkbox: false
-            }
+        let user = JSON.parse(localStorage.getItem('user')).user;
+        this.state = {        
+            user: user,
+            checkbox: false   
         }
     }
     handleChange = (e) => {
@@ -139,19 +132,20 @@ class AccountInfoModal extends Component {
             }
         });
      }
-    //  handleSubmit = (e) => {
-    //      e.preventDefault()
-    //      const { user } = this.state
-    //      const { dispatch } = this.props
-    //      console.log(user)
-    //      if( user.password === user.confirm_password) {
-    //          dispatch(userActions.signup(user))
-    //      } else {
-    //          alert('password is incorrect')
-    //      }
-    //  }
+     handleSubmit = (e) => {
+         e.preventDefault()
+         const { user } = this.state
+         const { dispatch } = this.props
+        //  alert(this.state.user._id)
+         if( user.password === user.confirm_password) {
+             dispatch(userActions.updateUser(user))
+         } else {
+             alert('password is incorrect')
+         }
+     }
     render() {
         const { user } = this.state
+
         return (
             <div style={styles.bg}>
             <div style={{display: 'block', textAlign: "center"}}>
@@ -206,14 +200,16 @@ class AccountInfoModal extends Component {
                                     value={user.email}
                                 />
                             </div>
-                            <div style={{marginLeft: 30, marginRight: 30, paddingTop: 10}}>
+                            {/* <div style={{marginLeft: 30, marginRight: 30, paddingTop: 10}}>
                                 <p style={styles.titleText}>Original Password</p>
                                 <input 
                                     style={styles.emailInput} 
                                     type="password" 
                                     onChange={this.handleChange}
+                                    name="password"
+                                    value={user.password}
                                 />
-                            </div>
+                            </div> */}
                             <div style={{display: 'flex'}}>
                                 <div style={{marginLeft: 30, width: 150}}>
                                     <label style={styles.titleText}>Create Password</label>
@@ -333,4 +329,16 @@ class AccountInfoModal extends Component {
     }
 }
 
-export default AccountInfoModal
+AccountInfoModal.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+    const {user} =  state.registration
+    console.log(user)
+    return {
+        user
+    }
+}
+
+export default connect(mapStateToProps)(AccountInfoModal);
