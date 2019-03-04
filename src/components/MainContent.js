@@ -44,35 +44,33 @@ class MainContent extends Component {
         super(props)
         this.state = {
             isOpen: false,
-            categories: '',
             activeIndex: false,
             categoryName: '',
             categoryId: ''
         }
     }
-
     componentDidMount() {
         this.setState({
             categories: this.props.categories
         })
     }
 
-    handleCategory = (index) => {
-        alert("hello"+index)
-        this.setState({ activeIndex: index, categoryId: index })
-        this.props.handleCategoryClickedId(index)
-        this.props.dispatch(subCategoryActions.subCategoryGet(index))
-        this.props.dispatch(itemActions.itemGet(index))
+    handleCategory = async (index) => {
+        // alert("hello"+index)
+        await this.setState({ activeIndex: index, categoryId: index })
+        await this.props.handleCategoryClickedId(index)
+        await this.props.dispatch(subCategoryActions.subCategoryGet(index))
+        await this.props.dispatch(itemActions.itemGet(index))
     }
 
-    handleCategoryName = (categoryName) => {
-        this.setState({
+    handleCategoryName = async (categoryName) => {
+        await this.setState({
             categoryName: categoryName
         })
     }
 
-    handleDeleteCategoryClick = () => {
-        this.props.dispatch(categoryActions.categoryDelete(this.state.categoryId))
+    handleDeleteCategoryClick = async () => {
+        await this.props.dispatch(categoryActions.categoryDelete(this.state.categoryId))
     }
 
     render() {
@@ -131,16 +129,16 @@ class MainContent extends Component {
 
 MainContent.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 }
 
 function mapStateToProps(state) {
-    const {categories} =  state.category
+    const {categories, activeCategory} =  state.category
     const {subCategories} = state.subCategory
     const {items} = state.item
-    console.log(categories)
+    console.log(categories, activeCategory)
     return {
         categories,
+        activeCategory,
         subCategories,
         items
     }

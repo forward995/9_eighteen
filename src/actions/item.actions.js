@@ -18,6 +18,7 @@ function itemGet(id) {
                 (items) => {
                     console.log(items)
                 dispatch(success(items)) 
+                history.push('/home')
             },
                 error => {
                     console.log(error)
@@ -45,6 +46,7 @@ function itemEdit(id) {
             .then(
                 (item) => {
                     dispatch(success(item))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -73,6 +75,7 @@ function itemUpdate(item) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -100,6 +103,7 @@ function itemDelete(id) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)

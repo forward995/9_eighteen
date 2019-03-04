@@ -109,7 +109,7 @@ class EditModal extends Component {
                             {   
                                 !this.state.editState&&
                                 <p style={styles.txt1}>
-                                    {this.props.course.courseName}
+                                    {/* {this.props.course.courseName} */}
                                 </p>
                             }
                             {   

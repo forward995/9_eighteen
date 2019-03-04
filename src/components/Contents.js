@@ -151,8 +151,7 @@ class Contents extends Component {
 }
 
 Contents.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    // categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {

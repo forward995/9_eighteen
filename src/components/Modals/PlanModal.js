@@ -136,7 +136,7 @@ class PlanModal extends Component {
     handleSubmit = async (e) => {
         e.preventDefault()
         
-        alert(this.props.planSelectedDate)
+        // alert(this.props.planSelectedDate)
         const {plan} = this.state
         const {planSelectedDate} = this.props
         await this.setState({

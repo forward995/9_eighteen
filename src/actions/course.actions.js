@@ -1,6 +1,6 @@
 import { userConstants } from '../constants'
 import { courseService } from '../services/course.services'
-
+import {history} from '../history'
 export const courseActions = {
     courseGet,
     courseEdit,
@@ -18,6 +18,7 @@ function courseGet() {
                 (courses) => {
                     console.log(courses)
                 dispatch(success(courses)) 
+                history.push('/home')
             },
                 error => {
                     console.log(error)
@@ -44,6 +45,7 @@ function courseEdit(id) {
             .then(
                 (course) => {
                     dispatch(success(course))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -70,8 +72,9 @@ function courseUpdate(course) {
         dispatch(request(course.id))
         courseService.courseUpdate(course)
             .then(
-                () => {
-                    dispatch(success())
+                (course) => {
+                    dispatch(success(course))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -84,9 +87,10 @@ function courseUpdate(course) {
             id
         }
     }
-    function success() {
+    function success(course) {
         return {
-            type: userConstants.COURSE_UPDATE_SUCCESS
+            type: userConstants.COURSE_UPDATE_SUCCESS,
+            course
         }
     }
 }
@@ -99,6 +103,7 @@ function courseDelete(id) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -121,11 +126,11 @@ function courseDelete(id) {
 function courseAdd(course) {
     return dispatch => {
         dispatch(request(course))
-        console.log("add")
         courseService.courseAdd(course)
             .then(
-                () => {
-                    dispatch(success())
+                (course) => {
+                    dispatch(success(course))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -138,9 +143,10 @@ function courseAdd(course) {
             course
         }
     }
-    function success() {
+    function success(course) {
         return {
-            type: userConstants.COURSE_ADD_SUCCESS
+            type: userConstants.COURSE_ADD_SUCCESS,
+            course
         }
     }
 }

@@ -59,21 +59,13 @@ class MainHeader extends Component {
             activeIndex: false,
             showEditModal: false,
             showAddModal: false,
-            courses: {},
-            course: []
+            courses: '',
+            course: ''
         }
     }
 
     componentDidMount() {
         this.props.dispatch(courseActions.courseGet()) 
-    }
-
-    componentWillReceiveProps () {
-        this.setState({ 
-            courses: this.props.courses
-        })
-        console.log(this.state.courses)
-        console.log(typeof this.props.courses)
     }
 
     handleClick = () => {
@@ -88,48 +80,50 @@ class MainHeader extends Component {
         })
     }
 
-    handleCourse = (index) => {
-        alert(index)
-        this.setState({ activeIndex: index })
-        this.props.getCourseId(index)
+    handleCourse = async (index) => {
+        alert(this.state.activeIndex)
+        await this.setState({ activeIndex: index })
+        await this.props.getCourseId(index)
     }
 
-    handleEditClick(id){
+    async handleEditClick (id) {
         alert(id)
-        this.setState({
-            showEditModal: !this.state.showEditModal
-        })
         this.props.dispatch(courseActions.courseGet()) 
         this.props.dispatch(courseActions.courseEdit(id))
+        await this.setState({
+            showEditModal: !this.state.showEditModal,
+            showModal: !this.state.showModal,
+        })
     }
 
     handleEditClose = () => {
         this.setState({
-            showModal: !this.state.showModal,
             showEditModal: !this.state.showEditModal
         })
     }
 
     handleAdd = () => {
         this.setState({
-            showAddModal: !this.state.showAddModal
+            showAddModal: !this.state.showAddModal,
+            showModal: !this.state.showModal,
         })
     }
 
     handleAddClose = () => {
         this.setState({
-            showModal: !this.state.showModal,
+            // showModal: !this.state.showModal,
             showAddModal: !this.state.showAddModal
         })
     }
 
     render() {
-        const {courses, course} = this.props
+        const {courses} = this.props
+        
         return (
             <div>
                 <ul className="nav nav-tabs" style={styles.tab}>
-                    {
-                        courses && courses.map(item => (
+                    {                        
+                        courses && courses.map((item, index) => (
                             <li key={item._id} className="nav-item" style={{cursor: 'pointer'}}>
                                 <a 
                                     onClick={() => this.handleCourse(item._id)}
@@ -146,7 +140,7 @@ class MainHeader extends Component {
                         <a className="nav-link" onClick={this.handleClick} href="#" style={styles.txt3}>Details</a>
                     </li>
                 </ul>
-                {
+                {/* {
                     this.state.showModal&&
                         <div style={styles.modal}>
                             <div style={{display: 'block'}}>
@@ -174,6 +168,42 @@ class MainHeader extends Component {
                                 }
                             </div>
                         </div>
+                } */}
+                {
+                    this.state.showModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <MainHeaderModal 
+                                courses={this.props.courses} 
+                                onClick={this.handleClose}
+                                handleEditClick={(id) => this.handleEditClick(id)}
+                                handleAdd={this.handleAdd}
+                            />
+                        </div>
+                    </div>
+
+                }
+                {
+                    this.state.showEditModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <EditModal 
+                                handleEditClose={this.handleEditClose}
+                                course={this.props.course}
+                            />
+                        </div>
+                    </div>
+
+                }
+                {
+                    this.state.showAddModal&&
+                    <div style={styles.modal}>
+                        <div style={{display: 'block'}}>
+                            <AddCourseModal 
+                                handleAddClose={this.handleAddClose}
+                            />
+                        </div>
+                    </div>
                 }
             </div>
         );
@@ -185,10 +215,12 @@ MainHeader.propTypes = {
 }
 
 function mapStateToProps(state) {
-    const {courses, course} =  state.course
-    console.log(courses,course)
+    const {courses, activeCourse,course} =  state.course
+    console.log("HHHHHHH"+course)
+    
     return {
         courses,
+        activeCourse,
         course
     }
 }

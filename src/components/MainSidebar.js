@@ -79,7 +79,6 @@ class MainSidebar extends Component {
     }
 
     handleClick = () => {
-        alert("hello")
         console.log(this.state.date)
     }
 
@@ -113,7 +112,7 @@ class MainSidebar extends Component {
                 <div className="col-sm-12" style={{padding: 0}}>
                 {
                     this.props.plans&&this.props.plans.map((item, index) => (
-                        <React.Fragment>
+                        <React.Fragment key={index}>
                             {
                                 item.planSelectedDate===formatDate(this.state.date)&&
                                 <div key={index} className="col-sm-8" style={styles.card}>

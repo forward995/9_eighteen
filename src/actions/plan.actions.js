@@ -45,6 +45,7 @@ function getPlans() {
             .then(
                 (plans) => {
                 dispatch(success(plans)) 
+                history.push('/home')
             },
                 error => {
                     console.log(error)
@@ -73,6 +74,7 @@ function planEdit(id) {
             .then(
                 (plan) => {
                     dispatch(success(plan))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -101,6 +103,7 @@ function planUpdate(plan) {
             .then(
                 (plan) => {
                     dispatch(success(plan))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -129,6 +132,7 @@ function deletePlan(id) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -156,7 +160,7 @@ function planAdd(plan) {
             .then(
                 (plan) => {
                     dispatch(success(plan))
-                    history.push('/home#');
+                    history.push('/home');
                 },
                 error => {
                     console.log(error)

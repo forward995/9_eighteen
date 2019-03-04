@@ -18,6 +18,7 @@ function subCategoryGet(id) {
                 (subCategories) => {
                     console.log(subCategories)
                 dispatch(success(subCategories)) 
+                history.push('/home')
             },
                 error => {
                     console.log(error)
@@ -45,6 +46,7 @@ function subCategoryEdit(id) {
             .then(
                 (subCategory) => {
                     dispatch(success(subCategory))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -73,6 +75,7 @@ function subCategoryUpdate(subCategory) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -100,6 +103,7 @@ function subCategoryDelete(id) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -127,7 +131,7 @@ function subCategoryAdd(subCategory) {
             .then(
                 (subCategory) => {
                     dispatch(success(subCategory))
-                    history.push('/home#');
+                    history.push('/home');
                 },
                 error => {
                     console.log(error)

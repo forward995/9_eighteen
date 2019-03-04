@@ -19,7 +19,7 @@ import { categoryActions } from '../actions/category.actions';
 import { subCategoryActions } from '../actions/subCategory.actions';
 import { itemActions } from '../actions/item.actions';
 import EditPlanModal from './Modals/EditPlanModal';
-import { planActions } from '../actions/plan.actions';
+// import { planActions } from '../actions/plan.actions';
 
 const styles = {
     modal: {
@@ -189,8 +189,7 @@ class Main extends Component {
                 courseId: id   
             }
         })
-        alert("courseid"+this.state.category.courseId)
-        this.props.dispatch(categoryActions.categoryGet(id))
+        await this.props.dispatch(categoryActions.categoryGet(id))
     }
 
     handleCategoryClickedId = async (id) => {
@@ -204,10 +203,10 @@ class Main extends Component {
         alert("categoryid"+this.state.category.categoryId)
     }
 
-    handleAddCategory = (category) => {
+    handleAddCategory = async (category) => {
         console.log(category)
-        this.props.dispatch(categoryActions.categoryAdd(category))
-        this.props.dispatch(categoryActions.categoryGet(category.courseId))
+        await this.props.dispatch(categoryActions.categoryAdd(category))
+        await this.props.dispatch(categoryActions.categoryGet(category.courseId))
     }
 
     handlePlanClick = () => {
@@ -368,8 +367,7 @@ class Main extends Component {
 
 
 Main.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {

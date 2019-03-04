@@ -21,7 +21,6 @@ class SubCategory extends Component {
                     this.setState({
                         subCategory: this.store.getState().subCategory
                     });
-                    console.log("hello"+this.state.subCategory.subCategoryName)
                 });
               
             }

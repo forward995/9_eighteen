@@ -18,6 +18,7 @@ function categoryGet(id) {
                 (categories) => {
                     console.log(categories)
                 dispatch(success(categories)) 
+                history.push('/home')
             },
                 error => {
                     console.log(error)
@@ -45,6 +46,7 @@ function categoryEdit(id) {
             .then(
                 (category) => {
                     dispatch(success(category))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -73,6 +75,7 @@ function categoryUpdate(category) {
             .then(
                 () => {
                     dispatch(success())
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)
@@ -128,6 +131,7 @@ function categoryAdd(category) {
             .then(
                 (categories, category) => {
                     dispatch(success(categories, category))
+                    history.push('/home')
                 },
                 error => {
                     console.log(error)

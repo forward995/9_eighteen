@@ -117,7 +117,7 @@ class ItemModal extends Component {
     handleOnChange = (e) => {
         const {item} =  this.state
         const subCategoryId = e.target.value
-        alert(subCategoryId)
+        // alert(subCategoryId)
         this.setState({
             item: {
                 ...item,
@@ -132,7 +132,7 @@ class ItemModal extends Component {
         e.preventDefault()
         const {item}=this.state
         const categoryId=this.props.categoryId
-        alert(categoryId)
+        // alert(categoryId)
         await this.setState({
             item: {
                 ...item,

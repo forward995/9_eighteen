@@ -43,7 +43,6 @@ function courseGet() {
 }
 
 function courseEdit(id) {
-    console.log(id)
     const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}

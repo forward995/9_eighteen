@@ -74,6 +74,7 @@ class MainHeaderModal extends Component {
     }
     handleDelete (id) {
         this.props.dispatch(courseActions.courseDelete(id))
+        this.props.dispatch(courseActions.courseGet())
     }
     render() {
         return (
