@@ -11,7 +11,7 @@ const baseURL = 'http://localhost:8000'
 
 
 function courseAdd(course) {
-    console.log("add")
+    // console.log("add")
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

@@ -92,7 +92,7 @@ class SubCategory extends Component {
 
 const mapStateToProps = (state) => {
     const {subCategory, subCategories} =  state.subCategory
-    console.log(subCategory, subCategories)
+    // console.log(subCategory, subCategories)
     return {
         subCategory, subCategories
     }

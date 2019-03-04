@@ -157,7 +157,7 @@ Contents.propTypes = {
 function mapStateToProps(state) {
     const {subCategories} =  state.subCategory
     const {items} = state.item
-    console.log(subCategories, items)
+    // console.log(subCategories, items)
     return {
         subCategories, items
     }

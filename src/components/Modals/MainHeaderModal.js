@@ -69,7 +69,7 @@ class MainHeaderModal extends Component {
         super(props)
     }
     handleEdit(id) {
-        alert(id)
+        // alert(id)
         this.props.handleEditClick(id)
     }
     handleDelete (id) {

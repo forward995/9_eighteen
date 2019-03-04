@@ -228,7 +228,7 @@ PlanModal.propTypes = {
 
 const mapStateToProps = (state) => {
     const {plan} = state.plan
-    console.log(plan)
+    // console.log(plan)
     return {
         plan
     }

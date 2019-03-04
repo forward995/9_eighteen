@@ -12,7 +12,7 @@ export const courseActions = {
 function courseGet() {
     return dispatch => {
         dispatch(request())
-        console.log('get')
+        // console.log('get')
         courseService.courseGet()
             .then(
                 (courses) => {
@@ -40,7 +40,7 @@ function courseGet() {
 function courseEdit(id) {
     return dispatch => {
         dispatch(request(id))
-        console.log("edit")
+        // console.log("edit")
         courseService.courseEdit(id)
             .then(
                 (course) => {
@@ -68,7 +68,7 @@ function courseEdit(id) {
 
 function courseUpdate(course) {
     return dispatch => {
-        console.log("update")
+        // console.log("update")
         dispatch(request(course.id))
         courseService.courseUpdate(course)
             .then(
@@ -98,7 +98,7 @@ function courseUpdate(course) {
 function courseDelete(id) {
     return dispatch => {
         dispatch(request(id))
-        console.log("delete")
+        // console.log("delete")
         courseService.courseDelete(id)
             .then(
                 () => {

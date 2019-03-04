@@ -335,7 +335,7 @@ AccountInfoModal.propTypes = {
 
 const mapStateToProps = (state) => {
     const {user} =  state.registration
-    console.log(user)
+    // console.log(user)
     return {
         user
     }

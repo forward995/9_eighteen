@@ -15,7 +15,7 @@ function signin(email, password) {
         userService.signin(email, password)
             .then(
                 user => {
-                    console.log("user", user)
+                    // console.log("user", user)
                     dispatch(success(user))
                     history.push('/home')
                 },
@@ -76,7 +76,7 @@ function signout() {
 
 function updateUser(user) {
     return dispatch => {
-        console.log("update")
+        // console.log("update")
         dispatch(request(user._id))
         userService.updateUser(user)
             .then(

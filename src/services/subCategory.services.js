@@ -10,7 +10,7 @@ const baseURL = 'http://localhost:8000'
 
 
 function subCategoryAdd(subCategory) {
-    console.log("add")
+    // console.log("add")
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -20,7 +20,7 @@ function subCategoryAdd(subCategory) {
 }
 
 function subCategoryGet(id) {
-    console.log("iiii"+id)
+    // console.log("iiii"+id)
     const requestOptions = {
         method: 'GET',
         headers: {
@@ -31,7 +31,7 @@ function subCategoryGet(id) {
 }
 
 function subCategoryEdit(id) {
-    console.log(id)
+    // console.log(id)
     const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}

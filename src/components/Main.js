@@ -93,7 +93,7 @@ class Main extends Component {
         })
     }
     handleEditCategoryClick = () => {
-        alert(this.state.category.categoryId)
+        // alert(this.state.category.categoryId)
         this.props.dispatch(categoryActions.categoryEdit(this.state.category.categoryId))
         this.setState({
             showEditCategoryModal: !this.state.showEditCategoryModal
@@ -138,7 +138,7 @@ class Main extends Component {
             showEditPlanModal: !this.state.showEditPlanModal,
             plan: item
         })
-        alert(this.state.plan.itemName)
+        // alert(this.state.plan.itemName)
     }
 
     // Modal close 
@@ -200,11 +200,11 @@ class Main extends Component {
                 categoryId: id   
             }
         })
-        alert("categoryid"+this.state.category.categoryId)
+        // alert("categoryid"+this.state.category.categoryId)
     }
 
     handleAddCategory = async (category) => {
-        console.log(category)
+        // console.log(category)
         await this.props.dispatch(categoryActions.categoryAdd(category))
         await this.props.dispatch(categoryActions.categoryGet(category.courseId))
     }
@@ -225,7 +225,7 @@ class Main extends Component {
         await this.setState({
             planSelectedDate: date
         })
-        alert(this.state.planSelectedDate)
+        // alert(this.state.planSelectedDate)
     }
 
     render() {
@@ -374,7 +374,7 @@ function mapStateToProps(state) {
     const {categories, category} = state.category
     const {subCategories, subCategory}=state.subCategory
     const { item } = state.item
-    console.log(categories, category)
+    // console.log(categories, category)
     return {
         categories, category, subCategories, subCategory, item
     }

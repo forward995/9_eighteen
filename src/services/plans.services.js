@@ -10,7 +10,7 @@ const baseURL = 'http://localhost:8000'
 
 
 function planAdd(plan) {
-    console.log("add")
+    // console.log("add")
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -39,7 +39,7 @@ function getPlans() {
 }
 
 function planEdit(id) {
-    console.log(id)
+    // console.log(id)
     const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}

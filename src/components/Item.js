@@ -53,7 +53,7 @@ class Item extends Component {
 
 const mapStateToProps = (state) => {
     const { items} =  state.item
-    console.log( items)
+    // console.log( items)
     return {
         items
     }

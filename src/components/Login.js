@@ -88,11 +88,11 @@ class Login extends Component {
     }
 
     handleSubmit = (e) => {
-        console.log(this.props.logginIn)
+        // console.log(this.props.logginIn)
         e.preventDefault()
         const {email, password} = this.state
         const {dispatch} = this.props
-        console.log(this.props)
+        // console.log(this.props)
         if(email && password) {
             dispatch(userActions.signin(email, password))
         }

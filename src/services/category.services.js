@@ -10,7 +10,7 @@ const baseURL = 'http://localhost:8000'
 
 
 function categoryAdd(category) {
-    console.log("add")
+    // console.log("add")
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -30,7 +30,7 @@ function categoryGet(id) {
 }
 
 function categoryEdit(id) {
-    console.log(id)
+    // console.log(id)
     const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}

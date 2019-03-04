@@ -74,7 +74,7 @@ class EditSubCategoryModal extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        alert(this.state.subCategory.subCategoryId)
+        // alert(this.state.subCategory.subCategoryId)
         this.props.dispatch(subCategoryActions.subCategoryUpdate(this.state.subCategory))
     }
 

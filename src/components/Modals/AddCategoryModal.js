@@ -90,7 +90,7 @@ class AddCategoryModal extends Component {
     handleClick (index) {
         const {category} = this.state
         this.setState({ activeIndex: index })
-        console.log(index)
+        // console.log(index)
         this.setState({
             category: {
                 ...category,

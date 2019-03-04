@@ -81,13 +81,13 @@ class MainHeader extends Component {
     }
 
     handleCourse = async (index) => {
-        alert(this.state.activeIndex)
+        // alert(this.state.activeIndex)
         await this.setState({ activeIndex: index })
         await this.props.getCourseId(index)
     }
 
     async handleEditClick (id) {
-        alert(id)
+        // alert(id)
         this.props.dispatch(courseActions.courseGet()) 
         this.props.dispatch(courseActions.courseEdit(id))
         await this.setState({
@@ -216,7 +216,7 @@ MainHeader.propTypes = {
 
 function mapStateToProps(state) {
     const {courses, activeCourse,course} =  state.course
-    console.log("HHHHHHH"+course)
+    // console.log("HHHHHHH"+course)
     
     return {
         courses,

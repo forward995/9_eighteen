@@ -116,7 +116,7 @@ class Register extends Component {
          e.preventDefault()
          const { user } = this.state
          const { dispatch } = this.props
-         console.log(user)
+        //  console.log(user)
          if( user.password === user.confirm_password) {
              dispatch(userActions.signup(user))
          } else {

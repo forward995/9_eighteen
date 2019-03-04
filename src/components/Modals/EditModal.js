@@ -96,7 +96,7 @@ class EditModal extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         const { course } = this.state
-        console.log(course)
+        // console.log(course)
         this.props.dispatch(courseActions.courseUpdate(course))
     }
     render() {

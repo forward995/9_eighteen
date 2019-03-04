@@ -135,7 +135,7 @@ function mapStateToProps(state) {
     const {categories, activeCategory} =  state.category
     const {subCategories} = state.subCategory
     const {items} = state.item
-    console.log(categories, activeCategory)
+    // console.log(categories, activeCategory)
     return {
         categories,
         activeCategory,

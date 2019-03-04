@@ -253,7 +253,7 @@ ItemModal.propTypes = {
 const mapStateToProps = (state) => {
     const {subCategories} = state.subCategory
     const {item} =  state.item
-    console.log(item)
+    // console.log(item)
     return {
         item,subCategories
     }

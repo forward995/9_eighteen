@@ -158,7 +158,7 @@ AddSubCategoryModal.propTypes = {
 
 const mapStateToProps = (state) => {
     const {subCategory} =  state.subCategory
-    console.log(subCategory)
+    // console.log(subCategory)
     return {
         subCategory
     }

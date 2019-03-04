@@ -79,7 +79,7 @@ class MainSidebar extends Component {
     }
 
     handleClick = () => {
-        console.log(this.state.date)
+        // console.log(this.state.date)
     }
 
     onChange = async date => {
@@ -195,7 +195,7 @@ MainSidebar.propTypes = {
 
 const mapStateToProps = (state) => {
     const {plan, plans} = state.plan
-    console.log(plan)
+    // console.log(plan)
     return {
         plan, plans
     }

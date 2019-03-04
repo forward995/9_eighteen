@@ -10,7 +10,7 @@ const baseURL = 'http://localhost:8000'
 
 
 function itemAdd(item) {
-    console.log("add")
+    // console.log("add")
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -30,7 +30,7 @@ function itemGet(id) {
 }
 
 function itemEdit(id) {
-    console.log(id)
+    // console.log(id)
     const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
