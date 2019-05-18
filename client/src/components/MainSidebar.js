@@ -87,8 +87,9 @@ class MainSidebar extends Component {
         this.props.getPlanDate(formatDate(this.state.date))
     }
 
-    handleDelete(id) {
-        this.props.dispatch(planActions.deletePlan(id))
+    async handleDelete(id) {
+        await this.props.dispatch(planActions.deletePlan(id))
+        this.props.dispatch(planActions.getPlans())
     }
 
     render() {

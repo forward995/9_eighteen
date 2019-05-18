@@ -150,6 +150,7 @@ class PlanModal extends Component {
             alert("please select the date")
         } else {
             this.props.dispatch(planActions.planAdd(this.state.plan))
+            this.props.dispatch(planActions.getPlans())
         }
     }
 
@@ -231,10 +232,10 @@ PlanModal.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-    const {plan} = state.plan
+    const {plan, plans} = state.plan
     // console.log(plan)
     return {
-        plan
+        plan, plans
     }
 }
 

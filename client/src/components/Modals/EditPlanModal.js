@@ -106,9 +106,10 @@ class EditPlanModal extends Component {
         })
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-        this.props.dispatch(planActions.planUpdate(this.state.plan))
+    handleSubmit = async (e) => {
+        // e.preventDefault()
+        await this.props.dispatch(planActions.planUpdate(this.state.plan))
+        await this.props.dispatch(planActions.getPlans())
     }
 
     render() {
@@ -182,14 +183,6 @@ class EditPlanModal extends Component {
 EditPlanModal.propTypes = {
     dispatch: PropTypes.func.isRequired,
 }
-
-// const mapStateToProps = (state) => {
-//     const {plan} = state.plan
-//     console.log(plan)
-//     return {
-//         plan
-//     }
-// }
 
 export default connect()(EditPlanModal)
 

@@ -179,6 +179,7 @@ class Main extends Component {
         this.setState({
             showEditPlanModal: !this.state.showEditPlanModal
         })
+        
     }
 
     async getCourseId (id) {
